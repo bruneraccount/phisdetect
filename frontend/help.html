@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <script>
+        (function () {
+            function themeFromUrl() {
+                try {
+                    var t = new URLSearchParams(window.location.search).get('theme');
+                    return (t === 'light' || t === 'dark') ? t : null;
+                } catch (e) { return null; }
+            }
+            var theme = themeFromUrl();
+            if (!theme) {
+                try {
+                    var saved = localStorage.getItem('phisdetect-theme');
+                    if (saved === 'light' || saved === 'dark') theme = saved;
+                } catch (e) {}
+            }
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhisDetect</title>
+
+    <!-- Meta tags -->
+    <meta name="description" content="PhisDetect" />
+    <meta name="theme-color" content="#00ff41" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2L4 7v8c0 5.5 4.2 10.7 12 13 7.8-2.3 12-7.5 12-13V7z' fill='%2300ff41' opacity='0.9'/%3E%3Cpath d='M16 4L6 8.5v6.5c0 4.5 3.5 9 10 11 6.5-2 10-6.5 10-11V8.5z' fill='%231a1a2e'/%3E%3Cpath d='M14.5 18l-4-4 1.5-1.5L14.5 15 20 9.5l1.5 1.5z' fill='%2300ff41'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2L4 7v8c0 5.5 4.2 10.7 12 13 7.8-2.3 12-7.5 12-13V7z' fill='%2300ff41' opacity='0.9'/%3E%3Cpath d='M16 4L6 8.5v6.5c0 4.5 3.5 9 10 11 6.5-2 10-6.5 10-11V8.5z' fill='%231a1a2e'/%3E%3Cpath d='M14.5 18l-4-4 1.5-1.5L14.5 15 20 9.5l1.5 1.5z' fill='%2300ff41'/%3E%3C/svg%3E" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="PhisDetect" />
+    <meta property="og:description" content="PhisDetect" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/main.css?v=9" />
+    <link rel="stylesheet" href="css/layout.css?v=9" />
+    <link rel="stylesheet" href="css/components.css?v=17" />
+    <link rel="stylesheet" href="css/terminal.css?v=7" />
+    <link rel="stylesheet" href="css/status.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+<body>
+    <!-- Terminal Grid Background -->
+    <div class="terminal-grid"></div>
+
+    <!-- Scanline Overlay -->
+    <div class="scanlines scanlines-subtle"></div>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============================================
+    APP WRAPPER
+    ============================================ -->
+    <div class="app">
+
+        <!-- ============================================
+        SIDEBAR
+        ============================================ -->
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-shield-halved brand-icon"></i>
+                <div>
+                    <div class="brand-text">Phis<span class="highlight">Detect</span></div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Menu</div>
+
+                <a class="sidebar-item" data-page="dashboard" href="dashboard.html">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a class="sidebar-item" data-page="scanner" href="index.html">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Scanner</span>
+                </a>
+
+                <a class="sidebar-item" data-page="minigames" href="minigames.html">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>Minigames</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a class="sidebar-item active" data-page="help" href="help.html" aria-current="page">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Help / FAQ</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <button class="sidebar-item" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================================
+        MAIN WRAPPER
+        ============================================ -->
+        <div class="main-wrapper">
+
+            <!-- ============================================
+            HEADER
+            ============================================ -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="header-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" id="notifButton" aria-label="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notifBadge">3</span>
+                    </button>
+
+                    <button class="header-btn" id="themeToggle" aria-label="Toggle theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <button class="header-btn" id="profileButton" aria-label="Profile">
+                        <i class="fa-regular fa-user"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ============================================
+            MAIN CONTENT
+            ============================================ -->
+            <main class="main-content">
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>
+                        Frequently Asked Questions
+                    </h1>
+                    <p>Find answers to common questions about PhisDetect</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="help-categories">
+                    <button class="category-btn active" data-category="all">
+                        <i class="fa-regular fa-circle"></i>
+                        All
+                    </button>
+                    <button class="category-btn" data-category="scanning">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Scanning
+                    </button>
+                    <button class="category-btn" data-category="security">
+                        <i class="fa-solid fa-lock"></i>
+                        Security
+                    </button>
+                    <button class="category-btn" data-category="reports">
+                        <i class="fa-solid fa-flag"></i>
+                        Reports
+                    </button>
+                    <button class="category-btn" data-category="account">
+                        <i class="fa-solid fa-user"></i>
+                        Account
+                    </button>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="faq-accordion">
+
+                    <!-- ==========================================
+                    CATEGORY: SCANNING
+                    ========================================== -->
+
+                    <!-- FAQ 1: URL Scanning -->
+                    <div class="faq-item active" data-category="scanning">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="true">
+                            <span class="faq-icon"><i class="fa-solid fa-link"></i></span>
+                            <span class="faq-question-text">How does URL scanning work?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>When you submit a URL, PhisDetect analyzes it through multiple layers:</p>
+                            <ul>
+                                <li><strong>Domain reputation</strong> — Checks if the domain is known for phishing</li>
+                                <li><strong>SSL certificate validation</strong> — Verifies if the connection is secure</li>
+                                <li><strong>Redirect chain analysis</strong> — Detects malicious redirects</li>
+                                <li><strong>Blacklist checking</strong> — Compares against known phishing databases</li>
+                                <li><strong>AI-powered risk scoring</strong> — Uses machine learning to predict threats</li>
+                            </ul>
+                            <p>The analysis typically completes within 2–5 seconds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2: Email Scanning -->
+                    <div class="faq-item" data-category="scanning">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="faq-question-text">How does email scanning work?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>Our email scanner examines several aspects of suspicious emails:</p>
+                            <ul>
+                                <li><strong>Natural Language Processing</strong> — Detects urgent or manipulative language</li>
+                                <li><strong>Grammar analysis</strong> — Identifies poor grammar common in phishing</li>
+                                <li><strong>Link extraction</strong> — Finds and analyzes embedded links</li>
+                                <li><strong>Sender domain verification</strong> — Checks if the sender is legitimate</li>
+                                <li><strong>Attachment scanning</strong> — Detects suspicious file types</li>
+                                <li><strong>Spoofing detection</strong> — Identifies impersonation attempts</li>
+                            </ul>
+                            <p>Simply paste the email content or headers and we'll handle the rest.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3: QR Scanning -->
+                    <div class="faq-item" data-category="scanning">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-qrcode"></i></span>
+                            <span class="faq-question-text">How does QR code scanning work?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>QR scanning follows a simple process:</p>
+                            <ul>
+                                <li><strong>Image upload</strong> — Upload a QR code image or drag and drop</li>
+                                <li><strong>Decoding</strong> — Extract the URL from the QR code</li>
+                                <li><strong>URL analysis</strong> — The extracted URL is automatically scanned using our threat detection</li>
+                                <li><strong>Risk assessment</strong> — Get a detailed threat analysis with confidence scores</li>
+                            </ul>
+                            <p>This is perfect for verifying QR codes you find in emails, posters, or physical locations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                    CATEGORY: SECURITY
+                    ========================================== -->
+
+                    <!-- FAQ 4: Privacy -->
+                    <div class="faq-item" data-category="security">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-lock"></i></span>
+                            <span class="faq-question-text">Is my data private and secure?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>Absolutely. We take your privacy seriously:</p>
+                            <ul>
+                                <li><strong>No data storage</strong> — URLs and emails are analyzed in real-time and not permanently stored</li>
+                                <li><strong>Anonymous scanning</strong> — No personal information is required</li>
+                                <li><strong>Secure connection</strong> — All data is transmitted over HTTPS</li>
+                                <li><strong>No third-party sharing</strong> — Your scans and reports are kept confidential</li>
+                                <li><strong>Regular security audits</strong> — We continuously monitor and improve our security</li>
+                            </ul>
+                            <p>We recommend using PhisDetect as a tool, but always exercise caution online.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5: Data Storage -->
+                    <div class="faq-item" data-category="security">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-database"></i></span>
+                            <span class="faq-question-text">How is my data stored?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>Data storage follows these principles:</p>
+                            <ul>
+                                <li><strong>Minimal collection</strong> — We only store what's necessary for your reports</li>
+                                <li><strong>Encrypted database</strong> — All stored data is encrypted</li>
+                                <li><strong>Anonymous reports</strong> — Report submissions are anonymized</li>
+                                <li><strong>Data retention</strong> — Historical data is retained to track trends</li>
+                                <li><strong>GDPR compliant</strong> — We follow data protection regulations</li>
+                            </ul>
+                            <p>You can request data deletion at any time through your account settings.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                    CATEGORY: REPORTS
+                    ========================================== -->
+
+                    <!-- FAQ 6: Reports -->
+                    <div class="faq-item" data-category="reports">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-flag"></i></span>
+                            <span class="faq-question-text">How do reports work?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>When you submit a threat report:</p>
+                            <ul>
+                                <li><strong>Report submission</strong> — Click the "Report Threat" button after analysis</li>
+                                <li><strong>Automated reporting</strong> — Reports are sent to cybersecurity organizations</li>
+                                <li><strong>Points reward</strong> — You earn <strong>+10 points</strong> for each report</li>
+                                <li><strong>History tracking</strong> — All your reports are saved to your dashboard</li>
+                                <li><strong>Community protection</strong> — Your report helps protect other users</li>
+                            </ul>
+                            <p>Each report is reviewed and contributes to our threat intelligence database.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 7: Points -->
+                    <div class="faq-item" data-category="reports">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-trophy"></i></span>
+                            <span class="faq-question-text">How do points work?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>Points are our way of rewarding vigilant users:</p>
+                            <ul>
+                                <li><strong>+5 points</strong> — Detecting a threat (URL, Email, or QR scan)</li>
+                                <li><strong>+10 points</strong> — Submitting a threat report</li>
+                                <li><strong>Bonus points</strong> — Extra points for reporting critical threats</li>
+                                <li><strong>Leaderboard</strong> — Compete with other users for top ranking</li>
+                                <li><strong>Badges</strong> — Achieve milestones and earn special recognition</li>
+                            </ul>
+                            <p>Your points contribute to your rank on the leaderboard.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                    CATEGORY: ACCOUNT
+                    ========================================== -->
+
+                    <!-- FAQ 8: Account Creation -->
+                    <div class="faq-item" data-category="account">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-user-plus"></i></span>
+                            <span class="faq-question-text">How do I create an account?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>Creating an account is simple:</p>
+                            <ul>
+                                <li><strong>Click Settings</strong> — Access the settings option in your profile</li>
+                                <li><strong>Sign up</strong> — Enter your email and create a password</li>
+                                <li><strong>Verify email</strong> — Confirm your email address</li>
+                                <li><strong>Start scanning</strong> — Begin earning points and submitting reports</li>
+                            </ul>
+                            <p>Coming soon: Google and GitHub OAuth integration!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 9: Membership Benefits -->
+                    <div class="faq-item" data-category="account">
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                            <span class="faq-icon"><i class="fa-solid fa-star"></i></span>
+                            <span class="faq-question-text">What are the membership benefits?</span>
+                            <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <div>
+                            <p>Free users get full access to all features:</p>
+                            <ul>
+                                <li><strong>Unlimited URL scans</strong> — Scan as many URLs as you need</li>
+                                <li><strong>Email analysis</strong> — Analyze suspicious emails</li>
+                                <li><strong>QR decoding</strong> — Extract and scan QR codes</li>
+                                <li><strong>Report submissions</strong> — Help protect the community</li>
+                                <li><strong>Points and badges</strong> — Earn rewards for your vigilance</li>
+                                <li><strong>Leaderboard</strong> — Compete globally</li>
+                            </ul>
+                            <p>We believe cybersecurity should be accessible to everyone. No hidden fees!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /faq-accordion -->
+
+                <!-- Contact Section -->
+                <div class="help-footer">
+                    <div class="contact-card">
+                        <i class="fa-solid fa-headset"></i>
+                        <h3>Still have questions?</h3>
+                        <p>Our team is here to help. Reach out to us anytime.</p>
+                        <div class="contact-actions">
+                            <button class="contact-btn" onclick="Utils.toast('Support email: support@phisdetect.com', 'info')">
+                                <i class="fa-solid fa-envelope"></i>
+                                Email Support
+                            </button>
+                            <button class="contact-btn" onclick="Utils.toast('Live chat coming soon!', 'warning')">
+                                <i class="fa-solid fa-comment"></i>
+                                Live Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </main><!-- /main-content -->
+
+        </div><!-- /main-wrapper -->
+
+    </div><!-- /app -->
+
+    <!-- ============================================
+    DROPDOWN PANELS
+    ============================================ -->
+
+    <!-- Notification Dropdown -->
+    <div class="dropdown-panel" id="notificationPanel" role="menu" aria-hidden="true">
+        <div class="dropdown-header">
+            <span><i class="fa-regular fa-bell panel-icon"></i>Notifications</span>
+            <button class="mark-all-read">Mark all read</button>
+        </div>
+        <div class="dropdown-body" id="notificationList"></div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="dropdown-panel" id="profilePanel" role="menu" aria-hidden="true">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="profile-info">
+                <div class="profile-name">Guest User</div>
+                <div class="profile-points"><i class="fa-regular fa-star star-icon"></i> 0 points</div>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-value">0</span>
+                <span class="stat-label">Reports</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">#--</span>
+                <span class="stat-label">Rank</span>
+            </div>
+        </div>
+        <button class="dropdown-item" id="settingsBtn">
+            <i class="fa-solid fa-gear"></i> Settings
+        </button>
+        <button class="dropdown-item" id="logoutBtnDropdown">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
+
+    <!-- ============================================
+    SCRIPTS
+    ============================================ -->
+
+    <!-- Application Scripts -->
+    <script src="js/utils.js?v=7"></script>
+    <script src="js/theme.js?v=2"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/profile.js?v=7"></script>
+    <script src="js/navigation.js?v=8"></script>
+    <script src="js/faq.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

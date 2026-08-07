@@ -1,0 +1,356 @@
+/* ============================================
+   MAIN.CSS — Terminal Dashboard Theme
+   PhisDetect — Variables, Reset, Base Styles
+   ============================================ */
+
+/* ============================================
+   1. FONTS
+   ============================================ */
+/* Fonts are loaded via <link> in each HTML page to avoid render-blocking @import. */
+
+/* ============================================
+   2. CSS VARIABLES — Terminal Dashboard
+   ============================================ */
+:root {
+    /* ----- Backgrounds ----- */
+    --bg-body: #0a0e14;
+    --bg-sidebar: #0d1117;
+    --bg-primary: #0e141f;
+    --bg-card: rgba(255, 255, 255, 0.03);
+    --bg-card-hover: rgba(255, 255, 255, 0.05);
+    --bg-input: rgba(0, 0, 0, 0.4);
+    --bg-elevated: #111827;
+    --bg-active: rgba(0, 255, 65, 0.06);
+
+    /* ----- Borders ----- */
+    --border-subtle: rgba(255, 255, 255, 0.04);
+    --border-card: rgba(0, 255, 65, 0.08);
+    --border-input: rgba(0, 255, 65, 0.2);
+    --border-active: rgba(0, 255, 65, 0.3);
+
+    /* ----- Terminal Green (Primary) ----- */
+    --green: #00ff41;
+    --green-dark: #00cc33;
+    --green-darker: #009926;
+    --green-light: #33ff66;
+    --green-glow: rgba(0, 255, 65, 0.15);
+    --green-glow-strong: rgba(0, 255, 65, 0.3);
+
+    /* ----- Text ----- */
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted: #484f58;
+    --text-inverse: #0a0e14;
+
+    /* ----- Status Colors ----- */
+    --status-safe: #00ff41;
+    --status-safe-glow: rgba(0, 255, 65, 0.2);
+    --status-suspicious: #f59e0b;
+    --status-suspicious-glow: rgba(245, 158, 11, 0.2);
+    --status-danger: #ff3b3b;
+    --status-danger-glow: rgba(255, 59, 59, 0.25);
+    --status-critical: #ff0000;
+    --status-critical-glow: rgba(255, 0, 0, 0.35);
+
+    /* ----- Gradients ----- */
+    --gradient-green: linear-gradient(135deg, #00ff41, #00cc33);
+
+    /* ----- Spacing ----- */
+    --sidebar-width: 220px;
+    --header-height: 64px;
+    --nav-height: 60px;
+
+    /* ----- Radius ----- */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    /* ----- Shadows ----- */
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 40px rgba(0, 255, 65, 0.04);
+    --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.6);
+
+    /* ----- Transitions ----- */
+    --transition-fast: 0.15s ease;
+    --transition: 0.25s ease;
+    --transition-slow: 0.4s ease;
+
+    /* ----- Glass ----- */
+    --glass-blur: blur(8px);
+}
+
+/* ============================================
+   3. RESET
+   ============================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    transition: background-color var(--transition);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(ellipse at 50% -20%, rgba(0, 255, 65, 0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 65, 0.02) 0%, transparent 50%);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.015) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.01) 0%, transparent 40%);
+}
+
+/* ============================================
+   4. TYPOGRAPHY
+   ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+h1 {
+    font-size: 28px;
+}
+h2 {
+    font-size: 22px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+
+p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+a {
+    color: var(--green);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:not(.btn):hover {
+    color: var(--green-light);
+}
+
+/* ============================================
+   5. TERMINAL FONT UTILITY
+   ============================================ */
+.terminal-text,
+.terminal-input,
+.terminal-code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.terminal-text {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.terminal-code {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* ============================================
+   6. SCROLLBAR — Terminal Green
+   ============================================ */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 65, 0.2);
+    border-radius: 10px;
+    transition: background var(--transition);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--green);
+    box-shadow: 0 0 20px var(--green-glow);
+}
+
+/* ============================================
+   7. SELECTION
+   ============================================ */
+::selection {
+    background: var(--green);
+    color: var(--text-inverse);
+}
+
+::-moz-selection {
+    background: var(--green);
+    color: var(--text-inverse);
+}
+
+/* ============================================
+   8. UTILITY CLASSES
+   ============================================ */
+.hidden {
+    display: none !important;
+}
+
+.invisible {
+    visibility: hidden !important;
+}
+
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+}
+
+.text-green {
+    color: var(--green);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.glow-green {
+    box-shadow: 0 0 30px var(--green-glow);
+}
+
+.border-green {
+    border-color: var(--green) !important;
+}
+
+/* ============================================
+   9. LIGHT MODE OVERRIDES
+   ============================================ */
+[data-theme="light"] {
+    --bg-body: #f0f4f8;
+    --bg-sidebar: #e8ecf0;
+    --bg-primary: #ffffff;
+    --bg-card: rgba(0, 0, 0, 0.02);
+    --bg-card-hover: rgba(0, 0, 0, 0.04);
+    --bg-input: rgba(0, 0, 0, 0.04);
+    --bg-elevated: #ffffff;
+    --bg-active: rgba(0, 255, 65, 0.08);
+
+    --border-subtle: rgba(0, 0, 0, 0.06);
+    --border-card: rgba(0, 0, 0, 0.08);
+    --border-input: rgba(0, 0, 0, 0.15);
+
+    --text-primary: #0a0e14;
+    --text-secondary: #3d444a;
+    --text-muted: #8b949e;
+    --text-inverse: #ffffff;
+
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+    --green: #00b830;
+    --green-dark: #009926;
+    --green-glow: rgba(0, 184, 48, 0.12);
+    --green-glow-strong: rgba(0, 184, 48, 0.2);
+}
+
+[data-theme="light"] body {
+    background-color: var(--bg-body);
+}
+
+[data-theme="light"] body::before {
+    background: radial-gradient(ellipse at 50% -20%, rgba(0, 153, 38, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 153, 38, 0.03) 0%, transparent 50%);
+}
+
+[data-theme="light"] body::after {
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 153, 38, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 153, 38, 0.015) 0%, transparent 40%);
+}
+
+[data-theme="light"] ::selection {
+    background: var(--green);
+    color: #ffffff;
+}
+
+[data-theme="light"] ::-moz-selection {
+    background: var(--green);
+    color: #ffffff;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: var(--bg-body);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: rgba(0, 153, 38, 0.2);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--green);
+}
+
+/* ============================================
+   10. REDUCED MOTION — Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,0 +1,9 @@
+Flask==3.1.3
+flask-cors==6.0.5
+joblib==1.5.3
+pandas==3.0.5
+scikit-learn==1.9.0
+dnspython==2.8.0
+requests==2.34.2
+python-whois==0.9.6
+pyspellchecker==0.9.0

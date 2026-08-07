@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <script>
+        (function () {
+            function themeFromUrl() {
+                try {
+                    var t = new URLSearchParams(window.location.search).get('theme');
+                    return (t === 'light' || t === 'dark') ? t : null;
+                } catch (e) { return null; }
+            }
+            var theme = themeFromUrl();
+            if (!theme) {
+                try {
+                    var saved = localStorage.getItem('phisdetect-theme');
+                    if (saved === 'light' || saved === 'dark') theme = saved;
+                } catch (e) {}
+            }
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhisDetect</title>
+
+    <!-- Meta tags -->
+    <meta name="description" content="PhisDetect" />
+    <meta name="theme-color" content="#00ff41" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2L4 7v8c0 5.5 4.2 10.7 12 13 7.8-2.3 12-7.5 12-13V7z' fill='%2300ff41' opacity='0.9'/%3E%3Cpath d='M16 4L6 8.5v6.5c0 4.5 3.5 9 10 11 6.5-2 10-6.5 10-11V8.5z' fill='%231a1a2e'/%3E%3Cpath d='M14.5 18l-4-4 1.5-1.5L14.5 15 20 9.5l1.5 1.5z' fill='%2300ff41'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2L4 7v8c0 5.5 4.2 10.7 12 13 7.8-2.3 12-7.5 12-13V7z' fill='%2300ff41' opacity='0.9'/%3E%3Cpath d='M16 4L6 8.5v6.5c0 4.5 3.5 9 10 11 6.5-2 10-6.5 10-11V8.5z' fill='%231a1a2e'/%3E%3Cpath d='M14.5 18l-4-4 1.5-1.5L14.5 15 20 9.5l1.5 1.5z' fill='%2300ff41'/%3E%3C/svg%3E" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="PhisDetect" />
+    <meta property="og:description" content="PhisDetect" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/main.css?v=9" />
+    <link rel="stylesheet" href="css/layout.css?v=9" />
+    <link rel="stylesheet" href="css/components.css?v=17" />
+    <link rel="stylesheet" href="css/terminal.css?v=7" />
+    <link rel="stylesheet" href="css/status.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+<body>
+    <!-- Terminal Grid Background -->
+    <div class="terminal-grid"></div>
+
+    <!-- Scanline Overlay -->
+    <div class="scanlines scanlines-subtle"></div>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============================================
+    APP WRAPPER
+    ============================================ -->
+    <div class="app">
+
+        <!-- ============================================
+        SIDEBAR
+        ============================================ -->
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-shield-halved brand-icon"></i>
+                <div>
+                    <div class="brand-text">Phis<span class="highlight">Detect</span></div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Menu</div>
+
+                <a class="sidebar-item active" data-page="dashboard" href="dashboard.html" aria-current="page">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a class="sidebar-item" data-page="scanner" href="index.html">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Scanner</span>
+                </a>
+
+                <a class="sidebar-item" data-page="minigames" href="minigames.html">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>Minigames</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a class="sidebar-item" data-page="help" href="help.html">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Help / FAQ</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <button class="sidebar-item" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================================
+        MAIN WRAPPER
+        ============================================ -->
+        <div class="main-wrapper">
+
+            <!-- ============================================
+            HEADER
+            ============================================ -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="header-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="header-right">
+                    <button class="header-btn" id="notifButton" aria-label="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notifBadge">3</span>
+                    </button>
+
+                    <button class="header-btn" id="themeToggle" aria-label="Toggle theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <button class="header-btn" id="profileButton" aria-label="Profile">
+                        <i class="fa-regular fa-user"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ============================================
+            MAIN CONTENT
+            ============================================ -->
+            <main class="main-content">
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>
+                        Dashboard
+                    </h1>
+                    <p>Overview of your scanning activity and threat intelligence</p>
+                </div>
+
+                <!-- ==========================================
+                STATS GRID
+                ========================================== -->
+                <div class="stats-grid">
+                    <!-- Total Scans -->
+                    <div class="card stat-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="stat-number" id="totalScans">0</div>
+                        <div class="stat-caption">Total Scans</div>
+                    </div>
+
+                    <!-- Threats Detected -->
+                    <div class="card stat-card threats">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="stat-number" id="threatsDetected">0</div>
+                        <div class="stat-caption">Threats Detected</div>
+                    </div>
+
+                    <!-- Reports Submitted -->
+                    <div class="card stat-card reports">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-flag"></i>
+                        </div>
+                        <div class="stat-number" id="reportsSubmitted">0</div>
+                        <div class="stat-caption">Reports Submitted</div>
+                    </div>
+
+                    <!-- Points Earned -->
+                    <div class="card stat-card points">
+                        <div class="stat-icon">
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <div class="stat-number" id="pointsEarned">0</div>
+                        <div class="stat-caption">Points Earned</div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                RECENT ACTIVITY
+                ========================================== -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            Recent Activity
+                        </div>
+                        <span class="status-badge green">
+                            <span class="badge-dot"></span>
+                            Live
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="terminal-log" id="activityLog">
+                            <div class="log-line">
+                                <span class="log-time">--:--:--</span>
+                                <span class="log-gray">System ready. Waiting for activity...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                QUICK ACTIONS
+                ========================================== -->
+                <div class="quick-actions">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fa-solid fa-terminal"></i>
+                        Open Scanner
+                    </a>
+                    <button class="btn btn-secondary" onclick="location.reload();">
+                        <i class="fa-solid fa-rotate"></i>
+                        Refresh Stats
+                    </button>
+                </div>
+
+            </main><!-- /main-content -->
+
+        </div><!-- /main-wrapper -->
+
+    </div><!-- /app -->
+
+    <!-- ============================================
+    DROPDOWN PANELS
+    ============================================ -->
+
+    <!-- Notification Dropdown -->
+    <div class="dropdown-panel" id="notificationPanel" role="menu" aria-hidden="true">
+        <div class="dropdown-header">
+            <span><i class="fa-regular fa-bell panel-icon"></i>Notifications</span>
+            <button class="mark-all-read">Mark all read</button>
+        </div>
+        <div class="dropdown-body" id="notificationList"></div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="dropdown-panel" id="profilePanel" role="menu" aria-hidden="true">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="profile-info">
+                <div class="profile-name">Guest User</div>
+                <div class="profile-points"><i class="fa-regular fa-star star-icon"></i> 0 points</div>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-value">0</span>
+                <span class="stat-label">Reports</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">#--</span>
+                <span class="stat-label">Rank</span>
+            </div>
+        </div>
+        <button class="dropdown-item" id="settingsBtn">
+            <i class="fa-solid fa-gear"></i> Settings
+        </button>
+        <button class="dropdown-item" id="logoutBtnDropdown">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
+
+    <!-- ============================================
+    SCRIPTS
+    ============================================ -->
+
+    <!-- Application Scripts -->
+    <script src="js/utils.js?v=7"></script>
+    <script src="js/theme.js?v=2"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/profile.js?v=7"></script>
+    <script src="js/navigation.js?v=8"></script>
+    <script src="js/dashboard.js?v=7"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,466 @@
+/* ============================================
+   TERMINAL.CSS — Terminal Aesthetic
+   PhisDetect — Scanlines, Cursor, Grid, Terminal Feel
+   ============================================ */
+
+/* ============================================
+   1. SCANLINE OVERLAY
+   ============================================ */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.scanlines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+    );
+}
+
+/* Subtle version (less intrusive) */
+.scanlines-subtle::before {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.015) 3px,
+        rgba(0, 0, 0, 0.015) 4px
+    );
+}
+
+/* ============================================
+   2. TERMINAL GRID BACKGROUND
+   ============================================ */
+.terminal-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.terminal-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* ============================================
+   3. BLINKING CURSOR
+   ============================================ */
+.cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--green);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+}
+
+.cursor-blink.thick {
+    width: 8px;
+    background: var(--green);
+    opacity: 0.6;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Cursor in input fields (terminal style) */
+.input-text.terminal-cursor {
+    caret-color: var(--green);
+}
+
+.input-text.terminal-cursor::selection {
+    background: var(--green);
+    color: var(--text-inverse);
+}
+
+/* ============================================
+   4. TERMINAL PROMPT
+   ============================================ */
+.terminal-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.terminal-prompt .prompt-symbol {
+    color: var(--green);
+}
+
+.terminal-prompt .prompt-path {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.terminal-prompt .prompt-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    background: var(--green);
+    animation: blink 1s step-end infinite;
+}
+
+/* ============================================
+   5. TERMINAL OUTPUT LOG
+   ============================================ */
+.terminal-log {
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    max-height: 300px;
+    min-height: 120px;
+    overflow-y: auto;
+    color: var(--text-secondary);
+}
+
+.terminal-log .log-line {
+    display: flex;
+    gap: 12px;
+    padding: 2px 0;
+}
+
+.terminal-log .log-time {
+    color: var(--text-muted);
+    font-size: 11px;
+    min-width: 70px;
+}
+
+.terminal-log .log-green {
+    color: var(--green);
+}
+
+.terminal-log .log-red {
+    color: var(--status-danger);
+}
+
+.terminal-log .log-amber {
+    color: var(--status-suspicious);
+}
+
+.terminal-log .log-gray {
+    color: var(--text-muted);
+}
+
+.terminal-log .log-white {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   6. TERMINAL STATUS LINE
+   ============================================ */
+.terminal-status {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 16px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.terminal-status .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green-glow);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.terminal-status .status-dot.red {
+    background: var(--status-danger);
+    box-shadow: 0 0 12px var(--status-danger-glow);
+}
+
+.terminal-status .status-dot.amber {
+    background: var(--status-suspicious);
+    box-shadow: 0 0 12px var(--status-suspicious-glow);
+}
+
+/* ============================================
+   7. TERMINAL HEADER BAR
+   ============================================ */
+.terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--bg-input);
+    border-bottom: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.terminal-bar .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.terminal-bar .dot-red {
+    background: #ff5f56;
+}
+.terminal-bar .dot-amber {
+    background: #ffbd2e;
+}
+.terminal-bar .dot-green {
+    background: #27c93f;
+}
+
+.terminal-bar .terminal-title {
+    flex: 1;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+/* ============================================
+   8. TERMINAL CARD WRAPPER
+   ============================================ */
+.terminal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition);
+}
+
+.terminal-card:hover {
+    border-color: var(--border-active);
+    box-shadow: var(--shadow-glow);
+}
+
+.terminal-card .terminal-bar {
+    border-radius: 0;
+}
+
+.terminal-card .terminal-body {
+    padding: 20px;
+}
+
+/* ============================================
+   9. GLITCH EFFECT (Subtle on hover)
+   ============================================ */
+.glitch-hover {
+    transition: all var(--transition);
+}
+
+.glitch-hover:hover {
+    animation: glitch 0.3s ease-in-out;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-1px, 1px);
+    }
+    40% {
+        transform: translate(1px, -1px);
+    }
+    60% {
+        transform: translate(-1px, -1px);
+    }
+    80% {
+        transform: translate(1px, 1px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* ============================================
+   10. TERMINAL TYPING EFFECT (for static text)
+   ============================================ */
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--green);
+    animation: typing 2s steps(30) 1s forwards, blink-caret 0.75s step-end infinite;
+    max-width: 0;
+}
+
+@keyframes typing {
+    from {
+        max-width: 0;
+    }
+    to {
+        max-width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    0%,
+    100% {
+        border-color: var(--green);
+    }
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* ============================================
+   11. TERMINAL GLOW TEXT
+   ============================================ */
+.glow-green-text {
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green-glow), 0 0 60px var(--green-glow);
+}
+
+.glow-red-text {
+    color: var(--status-danger);
+    text-shadow: 0 0 20px var(--status-danger-glow);
+}
+
+.glow-amber-text {
+    color: var(--status-suspicious);
+    text-shadow: 0 0 20px var(--status-suspicious-glow);
+}
+
+/* ============================================
+   12. TERMINAL DIVIDER
+   ============================================ */
+.terminal-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.terminal-divider::before,
+.terminal-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+}
+
+.terminal-divider .divider-green {
+    color: var(--green);
+}
+
+.terminal-divider .divider-green::before,
+.terminal-divider .divider-green::after {
+    background: var(--green);
+    opacity: 0.15;
+}
+
+/* ============================================
+   13. LIGHT MODE OVERRIDES
+   ============================================ */
+[data-theme="light"] .scanlines::before {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px
+    );
+}
+
+[data-theme="light"] .terminal-grid::before {
+    background-image: 
+        linear-gradient(rgba(0, 153, 38, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 153, 38, 0.04) 1px, transparent 1px);
+}
+
+[data-theme="light"] .terminal-log {
+    background: var(--bg-input);
+    border-color: var(--border-input);
+}
+
+[data-theme="light"] .terminal-status {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .terminal-bar {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .terminal-card {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+
+[data-theme="light"] .terminal-card:hover {
+    border-color: var(--border-active);
+}
+
+[data-theme="light"] .glow-green-text {
+    text-shadow: 0 0 20px rgba(0, 153, 38, 0.15);
+}
+
+[data-theme="light"] .glow-red-text {
+    text-shadow: 0 0 20px rgba(255, 59, 59, 0.15);
+}
+
+[data-theme="light"] .glow-amber-text {
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}

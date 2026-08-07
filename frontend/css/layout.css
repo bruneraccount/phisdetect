@@ -1,0 +1,733 @@
+/* ============================================
+   LAYOUT.CSS — Sidebar + Header + Main Grid
+   PhisDetect — Terminal Dashboard
+   ============================================ */
+
+/* ============================================
+   1. APP WRAPPER
+   ============================================ */
+.app {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-body);
+    position: relative;
+}
+
+/* ============================================
+   2. SIDEBAR
+   ============================================ */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    transition: transform var(--transition), background var(--transition);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Sidebar Brand */
+.sidebar-brand {
+    padding: 20px 20px 16px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-brand .brand-icon {
+    color: var(--green);
+    font-size: 24px;
+}
+
+.sidebar-brand .brand-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.sidebar-brand .brand-text .highlight {
+    color: var(--green);
+}
+
+.sidebar-brand .brand-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar-nav .nav-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 8px 12px 6px 12px;
+}
+
+/* Sidebar Items */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+}
+
+.sidebar-item i {
+    width: 18px;
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+    text-align: center;
+}
+
+.sidebar-item:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.sidebar-item:hover i {
+    color: var(--text-secondary);
+}
+
+.sidebar-item.active {
+    background: var(--bg-active);
+    color: var(--green);
+}
+
+.sidebar-item.active i {
+    color: var(--green);
+}
+
+
+
+.sidebar-item .item-badge {
+    margin-left: auto;
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--border-subtle);
+}
+
+.sidebar-item.active .item-badge {
+    border-color: var(--green);
+    color: var(--green);
+}
+
+/* Sidebar Divider */
+.sidebar-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 8px 14px;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: 12px 12px 16px 12px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.sidebar-footer .sidebar-item {
+    font-size: 12px;
+    padding: 8px 14px;
+}
+
+.sidebar-footer .sidebar-item i {
+    font-size: 14px;
+}
+
+/* ============================================
+   3. SIDEBAR — SCROLLBAR
+   ============================================ */
+.sidebar::-webkit-scrollbar {
+    width: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--green);
+}
+
+/* ============================================
+   4. MAIN CONTENT WRAPPER
+   ============================================ */
+.main-wrapper {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: margin-left var(--transition);
+}
+
+/* ============================================
+   5. HEADER
+   ============================================ */
+.header {
+    height: var(--header-height);
+    background: var(--bg-body);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Mobile hamburger (hidden on desktop) */
+.header-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.header-menu-toggle:hover {
+    color: var(--text-primary);
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.header-title .highlight {
+    color: var(--green);
+}
+
+.header-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Header Icon Buttons */
+.header-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-subtle);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.header-btn:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-card);
+}
+
+.header-btn .badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--status-danger);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    padding: 0;
+    line-height: 1;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-body);
+}
+
+.header-btn .badge.visible {
+    display: flex;
+    animation: badgePulse 0.4s ease;
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   6. MAIN CONTENT AREA
+   ============================================ */
+.main-content {
+    flex: 1;
+    padding: 24px 28px 28px 28px;
+    background: var(--bg-body);
+    transition: background var(--transition);
+    animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   7. PAGE HEADER
+   ============================================ */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-header h1 i {
+    color: var(--green);
+}
+
+.page-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+/* ============================================
+   8. CORE PANELS
+   ============================================ */
+.panels {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ============================================
+   9. DROPDOWN PANELS
+   ============================================ */
+.dropdown-panel {
+    position: fixed;
+    top: calc(var(--header-height) + 8px);
+    right: 28px;
+    width: 340px;
+    max-height: 420px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-elevated), 0 0 60px rgba(0, 0, 0, 0.4);
+    z-index: 200;
+    overflow: hidden;
+    display: none;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-panel::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-elevated);
+    border-left: 1px solid var(--border-card);
+    border-top: 1px solid var(--border-card);
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.dropdown-panel.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#notificationPanel::before {
+    right: 82px;
+}
+
+#profilePanel::before {
+    right: 44px;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.mark-all-read {
+    background: none;
+    border: none;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.mark-all-read:hover {
+    background: var(--bg-active);
+}
+
+.dropdown-body {
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+/* Notification Items */
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.notification-item:hover {
+    background: var(--bg-card-hover);
+}
+
+.notification-item.unread {
+    background: rgba(0, 255, 65, 0.03);
+}
+
+.notification-item.read {
+    opacity: 0.6;
+}
+
+.notif-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 14px;
+}
+
+.notif-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notif-content p {
+    font-size: 13px;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.notif-content small {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    display: block;
+}
+
+.notif-dismiss {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.notification-item:hover .notif-dismiss {
+    opacity: 1;
+}
+
+.notif-dismiss:hover {
+    color: var(--status-danger);
+}
+
+.no-notifs {
+    padding: 30px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Profile Panel */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.profile-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-active);
+    border: 2px solid var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.profile-points {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.profile-stats {
+    display: flex;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    gap: 20px;
+}
+
+.profile-stats .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.profile-stats .stat-item .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-primary);
+}
+
+.profile-stats .stat-item .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+/* ============================================
+   10. SIDEBAR OVERLAY (Mobile)
+   ============================================ */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 90;
+}
+
+.sidebar-overlay.visible {
+    display: block;
+}
+
+/* ============================================
+   11. LIGHT MODE OVERRIDES
+   ============================================ */
+[data-theme="light"] .sidebar {
+    background: var(--bg-sidebar);
+    border-right-color: var(--border-subtle);
+}
+
+[data-theme="light"] .header {
+    background: var(--bg-body);
+    border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="light"] .sidebar-item:hover {
+    background: var(--bg-card);
+}
+
+[data-theme="light"] .sidebar-item.active {
+    background: var(--bg-active);
+}
+
+[data-theme="light"] .main-content {
+    background: var(--bg-body);
+}
+
+[data-theme="light"] .header-btn {
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .header-btn:hover {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+
+[data-theme="light"] .header-btn .badge {
+    border-color: var(--bg-body);
+}
+
+[data-theme="light"] .dropdown-panel {
+    background: var(--bg-elevated);
+    border-color: var(--border-card);
+    box-shadow: var(--shadow-elevated);
+}
+
+[data-theme="light"] .dropdown-header {
+    border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="light"] .notification-item.unread {
+    background: rgba(0, 153, 38, 0.04);
+}
+
+[data-theme="light"] .notif-icon {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .dropdown-item:hover {
+    background: var(--bg-card-hover);
+}
+
+[data-theme="light"] .profile-avatar {
+    background: var(--bg-active);
+    border-color: var(--green);
+}
+
+[data-theme="light"] .profile-stats {
+    border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="light"] .notification-item {
+    border-bottom-color: var(--border-subtle);
+}

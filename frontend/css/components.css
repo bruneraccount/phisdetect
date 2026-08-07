@@ -1,0 +1,1347 @@
+/* ============================================
+   COMPONENTS.CSS — Terminal Dashboard Components
+   PhisDetect — Cards, Buttons, Inputs, Tabs, Category Buttons
+   ============================================ */
+
+/* ============================================
+   1. CARDS
+   ============================================ */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-card);
+    animation: cardIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stats-grid .stat-card:nth-child(1) { animation-delay: 0.05s; }
+.stats-grid .stat-card:nth-child(2) { animation-delay: 0.12s; }
+.stats-grid .stat-card:nth-child(3) { animation-delay: 0.19s; }
+.stats-grid .stat-card:nth-child(4) { animation-delay: 0.26s; }
+
+.card:hover {
+    border-color: var(--border-active);
+    box-shadow: var(--shadow-glow);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-title i {
+    color: var(--green);
+    font-size: 18px;
+}
+
+.card-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.card-body {
+    color: var(--text-secondary);
+}
+
+.card-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Card variants */
+.card-danger {
+    border-color: var(--status-danger);
+}
+
+.card-danger .card-title i {
+    color: var(--status-danger);
+}
+
+.card-success {
+    border-color: var(--status-safe);
+}
+
+.card-success .card-title i {
+    color: var(--status-safe);
+}
+
+.card-warning {
+    border-color: var(--status-suspicious);
+}
+
+.card-warning .card-title i {
+    color: var(--status-suspicious);
+}
+
+/* ============================================
+   2. BUTTONS
+   ============================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn i {
+    font-size: 14px;
+}
+
+/* Primary — Terminal Green */
+.btn-primary {
+    background: var(--green);
+    color: var(--text-inverse);
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+/* Secondary — Ghost */
+.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-card);
+}
+
+/* Danger — Red */
+.btn-danger {
+    background: var(--status-danger);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background: #cc0000;
+    transform: translateY(-1px);
+}
+
+/* Success — Green (for safe states) */
+.btn-success {
+    background: var(--status-safe);
+    color: var(--text-inverse);
+}
+
+.btn-success:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+}
+
+/* Warning — Amber */
+.btn-warning {
+    background: var(--status-suspicious);
+    color: #ffffff;
+}
+
+.btn-warning:hover {
+    background: #d97706;
+    transform: translateY(-1px);
+}
+
+/* Outline variants */
+.btn-outline-primary {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--green);
+}
+
+.btn-outline-primary:hover {
+    background: var(--green);
+    color: var(--text-inverse);
+}
+
+.btn-outline-danger {
+    background: transparent;
+    color: var(--status-danger);
+    border: 1px solid var(--status-danger);
+}
+
+.btn-outline-danger:hover {
+    background: var(--status-danger);
+    color: #ffffff;
+}
+
+/* Size variants */
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+.btn-sm i {
+    font-size: 12px;
+}
+
+.btn-lg {
+    padding: 14px 32px;
+    font-size: 15px;
+}
+
+.btn-lg i {
+    font-size: 16px;
+}
+
+.btn-icon {
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.btn-icon.btn-sm {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+}
+
+.btn-icon.btn-sm i {
+    font-size: 12px;
+}
+
+/* Disabled */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Busy state — scanning */
+.btn.busy {
+    pointer-events: none;
+}
+
+/* ============================================
+   3. INPUTS
+   ============================================ */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.input-group .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: -2px;
+}
+
+/* Text Input */
+.input-text {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    transition: all var(--transition-fast);
+    outline: none;
+    resize: vertical;
+    min-height: 40px;
+}
+
+.input-text::placeholder {
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+}
+
+.input-text:hover {
+    border-color: var(--border-active);
+}
+
+.input-text:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 20px var(--green-glow);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.input-text:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Textarea */
+.input-textarea {
+    min-height: 140px;
+    resize: vertical;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Terminal-style input with prompt */
+.input-terminal {
+    position: relative;
+}
+
+.input-terminal .prompt {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.input-terminal .input-text {
+    padding-left: 44px;
+}
+
+.input-terminal .input-textarea {
+    padding-left: 44px;
+    padding-top: 14px;
+    min-height: 100px;
+}
+
+/* ============================================
+   4. TABS
+   ============================================ */
+.tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 16px 14px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+}
+
+.tab i {
+    font-size: 14px;
+}
+
+.tab::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    right: 50%;
+    height: 1.5px;
+    border-radius: 2px;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green-glow-strong);
+    transition: left 0.3s ease, right 0.3s ease;
+}
+
+.tab:hover {
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+}
+
+.tab.active {
+    color: var(--green);
+}
+
+.tab.active::after {
+    left: 12px;
+    right: 12px;
+}
+
+.tab.active i {
+    color: var(--green);
+}
+
+.tab:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Tab panels */
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.25s ease;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   5. BADGES
+   ============================================ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-green {
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--green);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+.badge-red {
+    background: rgba(255, 59, 59, 0.1);
+    color: var(--status-danger);
+    border: 1px solid rgba(255, 59, 59, 0.2);
+}
+
+.badge-amber {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--status-suspicious);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.badge-gray {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+}
+
+/* ============================================
+   6. DIVIDERS
+   ============================================ */
+.divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 16px 0;
+}
+
+.divider-green {
+    background: var(--green);
+    opacity: 0.15;
+}
+
+/* ============================================
+   7. LOADING SPINNER
+   ============================================ */
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-subtle);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner-sm {
+    width: 14px;
+    height: 14px;
+    border-width: 1.5px;
+}
+
+.spinner-lg {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+}
+
+/* ============================================
+   8. TOOLTIP
+   ============================================ */
+.tooltip {
+    position: relative;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    white-space: nowrap;
+    border: 1px solid var(--border-subtle);
+    pointer-events: none;
+    z-index: 300;
+}
+
+/* ============================================
+   9. EMPTY STATE
+   ============================================ */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 48px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.empty-state h3 {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   10. CATEGORY BUTTONS (Help/FAQ)
+   ============================================ */
+.help-categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.category-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.category-btn i {
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+.category-btn:hover {
+    border-color: var(--green);
+    color: var(--text-primary);
+    background: rgba(0, 255, 65, 0.04);
+    transform: translateY(-2px);
+}
+
+.category-btn:hover i {
+    color: var(--green);
+}
+
+.category-btn.active {
+    background: var(--green);
+    color: var(--text-inverse);
+    border-color: var(--green);
+    box-shadow: 0 0 30px var(--green-glow);
+}
+
+.category-btn.active i {
+    color: var(--text-inverse);
+}
+
+/* ============================================
+   11. FAQ ACCORDION (Help/FAQ)
+   ============================================ */
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition);
+}
+
+.faq-item:hover {
+    border-color: var(--border-card);
+}
+
+.faq-item.hidden {
+    display: none;
+}
+
+.faq-item.active {
+    border-color: var(--green);
+    box-shadow: 0 0 30px var(--green-glow);
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.faq-question:hover {
+    background: var(--bg-card-hover);
+}
+
+.faq-icon {
+    color: var(--green);
+    font-size: 18px;
+    min-width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faq-question-text {
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+}
+
+.faq-toggle {
+    color: var(--text-muted);
+    font-size: 14px;
+    transition: transform var(--transition-fast);
+    min-width: 20px;
+    text-align: center;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(180deg);
+    color: var(--green);
+}
+
+.faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+    overflow: hidden;
+}
+
+.faq-answer > div {
+    overflow: hidden;
+}
+
+.faq-item.active .faq-answer > div {
+    padding: 0 20px 18px 20px;
+    padding-right: 56px;
+}
+
+.faq-item.active .faq-answer {
+    grid-template-rows: 1fr;
+}
+
+.faq-answer p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 10px 0;
+}
+
+.faq-answer ul {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.9;
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.faq-answer ul li {
+    margin-bottom: 4px;
+}
+
+.faq-answer ul li strong {
+    color: var(--green);
+}
+
+/* ============================================
+   12. CONTACT CARD (Help/FAQ)
+   ============================================ */
+.help-footer {
+    margin-top: 40px;
+}
+
+.contact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    transition: all var(--transition);
+}
+
+.contact-card:hover {
+    border-color: var(--green);
+    box-shadow: 0 0 30px var(--green-glow);
+}
+
+.contact-card i {
+    font-size: 32px;
+    color: var(--green);
+}
+
+.contact-card h3 {
+    color: var(--text-primary);
+    font-size: 20px;
+    margin: 12px 0 4px 0;
+}
+
+.contact-card p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.contact-btn i {
+    font-size: 14px;
+}
+
+.contact-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(0, 255, 65, 0.04);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   13. TOAST NOTIFICATIONS
+   ============================================ */
+.toast-container {
+    position: fixed;
+    top: calc(var(--header-height) + 12px);
+    right: 20px;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 260px;
+    max-width: 380px;
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-card);
+    border-left: 3px solid var(--green);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-elevated), 0 0 30px rgba(0, 0, 0, 0.4);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(28px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast i {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.toast-info i {
+    color: var(--green);
+    text-shadow: 0 0 12px var(--green-glow);
+}
+
+.toast-success {
+    border-left-color: var(--status-safe);
+}
+
+.toast-success i {
+    color: var(--status-safe);
+    text-shadow: 0 0 12px var(--status-safe-glow);
+}
+
+.toast-warning {
+    border-left-color: var(--status-suspicious);
+}
+
+.toast-warning i {
+    color: var(--status-suspicious);
+    text-shadow: 0 0 12px var(--status-suspicious-glow);
+}
+
+.toast-error {
+    border-left-color: var(--status-danger);
+}
+
+.toast-error i {
+    color: var(--status-danger);
+    text-shadow: 0 0 12px var(--status-danger-glow);
+}
+
+/* ============================================
+   14. CONFIRM MODAL — Terminal Dialog
+   ============================================ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 600;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.terminal-modal {
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-elevated), 0 0 50px rgba(0, 255, 65, 0.06);
+    overflow: hidden;
+    transform: scale(0.94) translateY(10px);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+}
+
+.modal-overlay.show .terminal-modal {
+    transform: scale(1) translateY(0);
+}
+
+.terminal-modal .modal-body {
+    padding: 22px 20px 8px 20px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.terminal-modal .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 18px 20px 20px 20px;
+}
+
+/* ============================================
+   15. LAYOUT HELPERS (replaces inline styles)
+   ============================================ */
+.input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.input-row-start {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.input-btns {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.flex-1 {
+    flex: 1;
+    min-width: 200px;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+.mt-14 {
+    margin-top: 14px;
+}
+
+.mb-16 {
+    margin-bottom: 16px;
+}
+
+/* Textarea prompt pinned to top */
+.input-terminal .prompt.prompt-textarea {
+    top: 14px;
+    transform: none;
+}
+
+/* Report button — compact, sits beside the verdict message */
+.report-btn {
+    display: none;
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.report-btn i {
+    font-size: 12px;
+}
+
+/* Panel row icons */
+.panel-icon {
+    color: var(--green);
+    margin-right: 8px;
+}
+
+.star-icon {
+    color: #f59e0b;
+}
+
+.stats-block {
+    margin-top: 14px;
+}
+
+/* ============================================
+   16. QR SCANNER
+   ============================================ */
+.qr-upload-area {
+    margin-bottom: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    border: 2px dashed var(--border-input);
+    border-radius: var(--radius-md);
+    background: var(--bg-input);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.qr-upload-area > i {
+    font-size: 48px;
+    color: var(--green);
+    margin-bottom: 12px;
+    display: block;
+    opacity: 0.6;
+    transition: opacity var(--transition), transform var(--transition);
+}
+
+.qr-upload-area p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.qr-upload-area:hover {
+    border-color: var(--border-active);
+    background: var(--bg-active);
+}
+
+.qr-upload-area:hover > i {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.qr-upload-area.dragover {
+    border-color: var(--green);
+    background: rgba(0, 255, 65, 0.05);
+    box-shadow: 0 0 30px var(--green-glow);
+}
+
+.qr-upload-area.dragover > i {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.qr-upload-area:focus-visible {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 20px var(--green-glow);
+}
+
+.qr-extracted {
+    display: none;
+    margin-bottom: 16px;
+    padding: 14px 18px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+}
+
+.qr-extracted-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.qr-extracted-label i {
+    color: var(--green);
+    margin-right: 6px;
+}
+
+.qr-extracted-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+    word-break: break-all;
+}
+
+.qr-actions {
+    display: none;
+    margin-bottom: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   17. DASHBOARD STAT CARDS
+   ============================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.stat-card .stat-icon {
+    font-size: 28px;
+    color: var(--green);
+    margin-bottom: 4px;
+}
+
+.stat-card .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-card .stat-caption {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card.threats {
+    border-color: var(--status-danger);
+}
+
+.stat-card.threats .stat-icon,
+.stat-card.threats .stat-number {
+    color: var(--status-danger);
+}
+
+.stat-card.reports {
+    border-color: var(--status-suspicious);
+}
+
+.stat-card.reports .stat-icon,
+.stat-card.reports .stat-number {
+    color: var(--status-suspicious);
+}
+
+.stat-card.points {
+    border-color: #f59e0b;
+}
+
+.stat-card.points .stat-icon,
+.stat-card.points .stat-number {
+    color: #f59e0b;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* ============================================
+   18. MINIGAMES PAGE
+   ============================================ */
+.terminal-minigames {
+    margin: -24px -24px 28px -24px;
+    border: none;
+    border-bottom: 1px solid var(--border-input);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.terminal-minigames .terminal-bar {
+    border-radius: 0;
+}
+
+.minigames-log {
+    min-height: 170px;
+    max-height: 240px;
+}
+
+.minigames-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.minigame-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 24px;
+}
+
+.minigame-card .minigame-icon {
+    font-size: 30px;
+    color: var(--green);
+    margin-bottom: 14px;
+}
+
+.minigame-card .minigame-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.minigame-card .minigame-desc {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+}
+
+.minigame-card .status-badge {
+    margin-top: auto;
+}
+
+/* ============================================
+   19. LIGHT MODE OVERRIDES
+   ============================================ */
+[data-theme="light"] .card {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+
+[data-theme="light"] .card:hover {
+    border-color: var(--border-active);
+}
+
+[data-theme="light"] .tabs {
+    background: var(--bg-card);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .tab:hover {
+    background: var(--bg-card-hover);
+}
+
+[data-theme="light"] .tab.active {
+    color: var(--green);
+}
+
+[data-theme="light"] .input-text {
+    background: var(--bg-input);
+    border-color: var(--border-input);
+}
+
+[data-theme="light"] .input-text:focus {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .badge-gray {
+    background: var(--bg-card);
+}
+
+[data-theme="light"] .empty-state i {
+    opacity: 0.3;
+}
+
+[data-theme="light"] .tooltip:hover::after {
+    background: var(--bg-elevated);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .category-btn {
+    background: var(--bg-card);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .category-btn:hover {
+    background: rgba(0, 153, 38, 0.04);
+}
+
+[data-theme="light"] .category-btn.active {
+    background: var(--green);
+    color: #ffffff;
+}
+
+[data-theme="light"] .category-btn.active i {
+    color: #ffffff;
+}
+
+[data-theme="light"] .faq-item {
+    background: var(--bg-card);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .faq-item.active {
+    border-color: var(--green);
+}
+
+[data-theme="light"] .faq-question:hover {
+    background: var(--bg-card-hover);
+}
+
+[data-theme="light"] .contact-card {
+    background: var(--bg-card);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .contact-card:hover {
+    border-color: var(--green);
+}
+
+[data-theme="light"] .contact-btn {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}

@@ -1,0 +1,1330 @@
+/* ============================================
+   RESPONSIVE.CSS — Terminal Dashboard
+   PhisDetect — All Breakpoints
+   ============================================ */
+
+/* ============================================
+   1. TABLET LANDSCAPE & SMALL LAPTOPS
+   ============================================ */
+@media (max-width: 1024px) {
+    /* Sidebar */
+    .sidebar {
+        width: 64px;
+    }
+
+    .sidebar-brand .brand-text,
+    .sidebar-brand .brand-sub,
+    .sidebar-item span,
+    .sidebar-item .item-badge,
+    .sidebar-divider,
+    .nav-section-label,
+    .sidebar-footer .sidebar-item span {
+        display: none;
+    }
+
+    .sidebar-brand {
+        padding: 16px 12px;
+        justify-content: center;
+    }
+
+    .sidebar-brand .brand-icon {
+        font-size: 26px;
+    }
+
+    .sidebar-nav {
+        padding: 12px 8px;
+    }
+
+    .sidebar-item {
+        padding: 12px;
+        justify-content: center;
+        border-radius: var(--radius-sm);
+    }
+
+    .sidebar-item i {
+        font-size: 18px;
+        width: 24px;
+    }
+
+    .sidebar-item.active::before {
+        left: 0;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+    }
+
+    .sidebar-footer {
+        padding: 8px 8px 12px 8px;
+    }
+
+    .sidebar-footer .sidebar-item {
+        padding: 12px;
+    }
+
+    .sidebar-footer .sidebar-item i {
+        font-size: 16px;
+    }
+
+    /* Main wrapper */
+    .main-wrapper {
+        margin-left: 64px;
+    }
+
+    /* Header */
+    .header {
+        padding: 0 20px;
+    }
+
+    .header-subtitle {
+        display: none;
+    }
+
+    .main-content {
+        padding: 20px 20px 24px 20px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 20px;
+    }
+
+    /* Terminal log */
+    .terminal-log {
+        font-size: 12px;
+        max-height: 200px;
+    }
+}
+
+/* ============================================
+   2. TABLETS
+   ============================================ */
+@media (max-width: 768px) {
+    /* Sidebar overlay */
+    .sidebar-overlay {
+        display: none;
+    }
+
+    .sidebar-overlay.visible {
+        display: block;
+    }
+
+    /* Sidebar — hidden by default, slide in */
+    .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+        transition: transform var(--transition);
+        border-right: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-elevated);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Show all sidebar content when open */
+    .sidebar.open .sidebar-brand .brand-text,
+    .sidebar.open .sidebar-brand .brand-sub,
+    .sidebar.open .sidebar-item span,
+    .sidebar.open .sidebar-item .item-badge,
+    .sidebar.open .sidebar-divider,
+    .sidebar.open .nav-section-label,
+    .sidebar.open .sidebar-footer .sidebar-item span {
+        display: inline;
+    }
+
+    .sidebar.open .sidebar-brand {
+        padding: 20px 20px 16px 20px;
+        justify-content: flex-start;
+    }
+
+    .sidebar.open .sidebar-nav {
+        padding: 16px 12px;
+    }
+
+    .sidebar.open .sidebar-item {
+        padding: 10px 14px;
+        justify-content: flex-start;
+    }
+
+    .sidebar.open .sidebar-item i {
+        font-size: 16px;
+        width: 18px;
+    }
+
+    .sidebar.open .sidebar-footer {
+        padding: 12px 12px 16px 12px;
+    }
+
+    .sidebar.open .sidebar-footer .sidebar-item {
+        padding: 8px 14px;
+        justify-content: flex-start;
+    }
+
+    .sidebar.open .sidebar-footer .sidebar-item i {
+        font-size: 14px;
+    }
+
+    /* Main wrapper */
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    /* Header */
+    .header {
+        padding: 0 16px;
+        height: 56px;
+    }
+
+    .header-menu-toggle {
+        display: flex;
+    }
+
+    .header-title {
+        font-size: 16px;
+    }
+
+    .header-subtitle {
+        display: none;
+    }
+
+    .header-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    /* Main content */
+    .main-content {
+        padding: 16px;
+    }
+
+    .page-header h1 {
+        font-size: 18px;
+    }
+
+    .page-header p {
+        font-size: 13px;
+    }
+
+    /* Panels */
+    .panels {
+        gap: 16px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 16px;
+        border-radius: var(--radius-md);
+    }
+
+    .card-title {
+        font-size: 14px;
+    }
+
+    .card-subtitle {
+        font-size: 12px;
+    }
+
+    /* Tabs */
+    .tabs {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .tab {
+        flex: 1;
+        min-width: 80px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .tab i {
+        font-size: 13px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .btn i {
+        font-size: 13px;
+    }
+
+    .btn-lg {
+        padding: 10px 24px;
+        font-size: 13px;
+    }
+
+    /* Inputs */
+    .input-text {
+        padding: 10px 14px;
+        font-size: 13px;
+        min-height: 36px;
+    }
+
+    .input-textarea {
+        min-height: 100px;
+    }
+
+    .input-terminal .prompt {
+        font-size: 13px;
+        left: 14px;
+    }
+
+    .input-terminal .input-text {
+        padding-left: 38px;
+    }
+
+    /* Risk label */
+    .risk-label {
+        padding: 12px 16px;
+        font-size: 14px;
+        min-height: 48px;
+    }
+
+    .risk-label .risk-icon {
+        font-size: 17px;
+    }
+
+    .risk-label-lg {
+        padding: 14px 20px;
+        font-size: 17px;
+        min-height: 60px;
+    }
+
+    .risk-label-lg .risk-icon {
+        font-size: 22px;
+    }
+
+    /* Status badge */
+    .status-badge {
+        font-size: 10px;
+        padding: 3px 10px;
+    }
+
+    /* Stat row */
+    .stat-row {
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    .stat-row .stat-value {
+        font-size: 12px;
+        padding: 1px 10px;
+    }
+
+    /* Conclusion */
+    .conclusion {
+        padding: 12px 16px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+
+    /* Terminal log */
+    .terminal-log {
+        font-size: 12px;
+        padding: 12px;
+        max-height: 160px;
+    }
+
+    .terminal-log .log-time {
+        min-width: 50px;
+        font-size: 10px;
+    }
+
+    /* Terminal card */
+    .terminal-card .terminal-body {
+        padding: 16px;
+    }
+
+    .terminal-bar {
+        padding: 6px 12px;
+    }
+
+    .terminal-bar .dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .terminal-bar .terminal-title {
+        font-size: 11px;
+    }
+
+    /* Progress */
+    .progress-with-label {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .progress-with-label .progress-label {
+        min-width: 60px;
+        font-size: 12px;
+    }
+
+    .progress-with-label .progress-value {
+        font-size: 13px;
+        min-width: 36px;
+    }
+
+    /* Dropdowns */
+    .dropdown-panel {
+        right: 8px;
+        min-width: 280px;
+        max-width: 320px;
+        padding: 14px 16px;
+        border-radius: var(--radius-md);
+        top: 48px;
+        max-height: 340px;
+    }
+
+    #profilePanel {
+        min-width: 240px;
+    }
+
+    .profile-header {
+        gap: 12px;
+        padding-bottom: 12px;
+    }
+
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .profile-info .profile-name {
+        font-size: 14px;
+    }
+
+    .profile-info .profile-points {
+        font-size: 12px;
+    }
+
+    .profile-stats .stat-value {
+        font-size: 16px;
+    }
+
+    .dropdown-item {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    /* Notification item */
+    .notification-item {
+        padding: 8px 8px;
+    }
+
+    .notification-item .notif-content p {
+        font-size: 12px;
+    }
+
+    .notification-item .notif-content small {
+        font-size: 10px;
+    }
+
+    .notification-item .notif-icon {
+        font-size: 16px;
+        min-width: 20px;
+    }
+
+    /* QR Upload */
+    .qr-upload-area {
+        padding: 28px 16px;
+    }
+
+    .qr-upload-area i {
+        font-size: 40px !important;
+        margin-bottom: 10px;
+    }
+
+    .qr-upload-area p {
+        font-size: 13px;
+    }
+
+    .upload-btn {
+        padding: 8px 18px;
+        font-size: 13px;
+    }
+
+    #qrResult {
+        padding: 12px 14px;
+    }
+
+    #qrResult p:first-child {
+        font-size: 12px;
+    }
+    #qrResult p:last-child {
+        font-size: 13px;
+    }
+
+    /* Help page */
+    .help-container {
+        padding: 0 12px;
+        margin: 24px auto 40px auto;
+    }
+
+    .help-title {
+        font-size: 24px;
+    }
+
+    .help-title i {
+        font-size: 22px;
+    }
+
+    .help-subtitle {
+        font-size: 13px;
+    }
+
+    .help-categories {
+        gap: 6px;
+    }
+
+    .category-btn {
+        padding: 6px 14px;
+        font-size: 11px;
+    }
+
+    .faq-question {
+        padding: 14px 16px;
+        gap: 10px;
+    }
+
+    .faq-question-text {
+        font-size: 14px;
+    }
+
+    .faq-answer {
+        padding: 0;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0;
+    }
+
+    .faq-answer p,
+    .faq-answer ul {
+        font-size: 13px;
+    }
+
+    .contact-card {
+        padding: 24px 20px;
+    }
+
+    .contact-card h3 {
+        font-size: 17px;
+    }
+
+    .contact-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .contact-btn i {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   3. MOBILE PHONES
+   ============================================ */
+@media (max-width: 480px) {
+    /* Header */
+    .header {
+        padding: 0 12px;
+        height: 48px;
+    }
+
+    .header-title {
+        font-size: 14px;
+    }
+
+    .header-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .header-right {
+        gap: 6px;
+    }
+
+    .header-menu-toggle {
+        font-size: 16px;
+    }
+
+    /* Main content */
+    .main-content {
+        padding: 12px;
+    }
+
+    .page-header h1 {
+        font-size: 16px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+
+    .page-header {
+        margin-bottom: 16px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 12px;
+        border-radius: var(--radius-sm);
+    }
+
+    .card-header {
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .card-title {
+        font-size: 13px;
+    }
+
+    .card-title i {
+        font-size: 15px;
+    }
+
+    .card-footer {
+        flex-wrap: wrap;
+        justify-content: stretch;
+    }
+
+    .card-footer .btn {
+        flex: 1;
+    }
+
+    /* Tabs */
+    .tabs {
+        gap: 4px;
+        padding: 3px;
+    }
+
+    .tab {
+        min-width: 60px;
+        padding: 6px 10px;
+        font-size: 11px;
+        border-radius: 4px;
+    }
+
+    .tab i {
+        font-size: 12px;
+    }
+
+    .tab span {
+        font-size: 10px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        border-radius: 4px;
+    }
+
+    .btn i {
+        font-size: 12px;
+    }
+
+    .btn-lg {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .btn-sm {
+        padding: 4px 10px;
+        font-size: 10px;
+    }
+
+    .btn-icon {
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+    }
+
+    .btn-icon.btn-sm {
+        width: 26px;
+        height: 26px;
+        padding: 4px;
+    }
+
+    /* Inputs */
+    .input-text {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-height: 32px;
+        border-radius: 4px;
+    }
+
+    .input-textarea {
+        min-height: 80px;
+        font-size: 12px;
+    }
+
+    .input-terminal .prompt {
+        font-size: 12px;
+        left: 12px;
+    }
+
+    .input-terminal .input-text {
+        padding-left: 32px;
+    }
+
+    .input-group label {
+        font-size: 12px;
+    }
+
+    .input-group .hint {
+        font-size: 11px;
+    }
+
+    /* Risk label */
+    .risk-label {
+        padding: 10px 12px;
+        font-size: 12px;
+        min-height: 40px;
+        border-radius: 4px;
+    }
+
+    .risk-label .risk-icon {
+        font-size: 14px;
+    }
+
+    .risk-label-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+        min-height: 32px;
+    }
+
+    .risk-label-sm .risk-icon {
+        font-size: 12px;
+    }
+
+    .risk-label-lg {
+        padding: 12px 16px;
+        font-size: 14px;
+        min-height: 48px;
+    }
+
+    .risk-label-lg .risk-icon {
+        font-size: 18px;
+    }
+
+    /* Status badge */
+    .status-badge {
+        font-size: 9px;
+        padding: 2px 8px;
+        border-radius: 12px;
+    }
+
+    .status-badge .badge-dot {
+        width: 4px;
+        height: 4px;
+    }
+
+    .status-badge-sm {
+        font-size: 8px;
+        padding: 1px 6px;
+    }
+
+    /* Stat row */
+    .stat-row {
+        font-size: 12px;
+        padding: 6px 0;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .stat-row .stat-value {
+        font-size: 11px;
+        padding: 1px 8px;
+    }
+
+    /* Conclusion */
+    .conclusion {
+        padding: 10px 12px;
+        font-size: 12px;
+        min-height: 38px;
+        border-radius: 4px;
+    }
+
+    .conclusion .conclusion-icon {
+        font-size: 14px;
+        margin-right: 6px;
+    }
+
+    /* Terminal log */
+    .terminal-log {
+        font-size: 11px;
+        padding: 10px;
+        max-height: 120px;
+        border-radius: 4px;
+    }
+
+    .terminal-log .log-line {
+        gap: 8px;
+        padding: 1px 0;
+    }
+
+    .terminal-log .log-time {
+        min-width: 40px;
+        font-size: 9px;
+    }
+
+    /* Terminal card */
+    .terminal-card .terminal-body {
+        padding: 12px;
+    }
+
+    .terminal-bar {
+        padding: 4px 10px;
+    }
+
+    .terminal-bar .dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .terminal-bar .terminal-title {
+        font-size: 10px;
+    }
+
+    /* Progress */
+    .progress-with-label {
+        gap: 6px;
+    }
+
+    .progress-with-label .progress-label {
+        min-width: 50px;
+        font-size: 11px;
+    }
+
+    .progress-with-label .progress-value {
+        font-size: 12px;
+        min-width: 30px;
+    }
+
+    .progress-bar {
+        height: 4px;
+    }
+
+    /* QR Upload */
+    .qr-upload-area {
+        padding: 20px 12px;
+    }
+
+    .qr-upload-area i {
+        font-size: 32px !important;
+        margin-bottom: 8px;
+    }
+
+    .qr-upload-area p {
+        font-size: 12px;
+    }
+
+    .upload-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+
+    #qrResult {
+        padding: 10px 12px;
+    }
+
+    #qrResult p:first-child {
+        font-size: 11px;
+    }
+    #qrResult p:last-child {
+        font-size: 12px;
+    }
+
+    /* Dropdowns */
+    .dropdown-panel {
+        right: 4px;
+        min-width: 220px;
+        max-width: 260px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        top: 40px;
+        max-height: 280px;
+    }
+
+    #profilePanel {
+        min-width: 200px;
+    }
+
+    .profile-header {
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+
+    .profile-avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .profile-info .profile-name {
+        font-size: 13px;
+    }
+
+    .profile-info .profile-points {
+        font-size: 11px;
+    }
+
+    .profile-stats {
+        padding: 8px 0;
+    }
+
+    .profile-stats .stat-value {
+        font-size: 14px;
+    }
+
+    .profile-stats .stat-label {
+        font-size: 8px;
+    }
+
+    .dropdown-item {
+        font-size: 12px;
+        padding: 6px 8px;
+        gap: 8px;
+        border-radius: 4px;
+    }
+
+    .dropdown-header {
+        font-size: 12px;
+        padding-bottom: 6px;
+    }
+
+    .dropdown-header button {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    /* Notification item */
+    .notification-item {
+        padding: 6px 4px;
+        gap: 6px;
+    }
+
+    .notification-item .notif-content p {
+        font-size: 11px;
+    }
+
+    .notification-item .notif-content small {
+        font-size: 9px;
+    }
+
+    .notification-item .notif-icon {
+        font-size: 14px;
+        min-width: 18px;
+    }
+
+    .notification-item .notif-dismiss {
+        font-size: 12px;
+    }
+
+    .no-notifs {
+        font-size: 12px;
+        padding: 12px 0;
+    }
+
+    /* Help page */
+    .help-container {
+        padding: 0 8px;
+        margin: 16px auto 32px auto;
+    }
+
+    .help-header {
+        margin-bottom: 20px;
+    }
+
+    .help-title {
+        font-size: 20px;
+        gap: 8px;
+        flex-direction: column;
+    }
+
+    .help-title i {
+        font-size: 18px;
+    }
+
+    .help-subtitle {
+        font-size: 12px;
+    }
+
+    .help-categories {
+        gap: 4px;
+        margin-bottom: 16px;
+    }
+
+    .category-btn {
+        padding: 4px 10px;
+        font-size: 10px;
+        border-radius: 12px;
+    }
+
+    .faq-accordion {
+        gap: 6px;
+    }
+
+    .faq-question {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .faq-question-text {
+        font-size: 12px;
+    }
+
+    .faq-icon {
+        font-size: 13px;
+        min-width: 18px;
+    }
+
+    .faq-toggle {
+        font-size: 11px;
+        min-width: 14px;
+    }
+
+    .faq-answer {
+        padding: 0;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0;
+        max-height: none;
+    }
+
+    .faq-answer p,
+    .faq-answer ul {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .faq-answer ul {
+        padding-left: 14px;
+    }
+
+    .contact-card {
+        padding: 16px 12px;
+    }
+
+    .contact-card i {
+        font-size: 24px !important;
+    }
+
+    .contact-card h3 {
+        font-size: 15px;
+        margin: 8px 0 4px 0;
+    }
+
+    .contact-card p {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .contact-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    .contact-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .contact-btn i {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   4. VERY SMALL PHONES
+   ============================================ */
+@media (max-width: 360px) {
+    .header-title {
+        font-size: 12px;
+    }
+
+    .header-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+
+    .header-right {
+        gap: 4px;
+    }
+
+    .main-content {
+        padding: 8px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 12px;
+    }
+
+    .tab {
+        min-width: 40px;
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+
+    .tab i {
+        font-size: 10px;
+    }
+
+    .tab span {
+        font-size: 8px;
+    }
+
+    .btn {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+
+    .btn i {
+        font-size: 10px;
+    }
+
+    .input-text {
+        font-size: 11px;
+        padding: 6px 10px;
+        min-height: 28px;
+    }
+
+    .input-terminal .prompt {
+        font-size: 11px;
+        left: 10px;
+    }
+
+    .input-terminal .input-text {
+        padding-left: 28px;
+    }
+
+    .risk-label {
+        font-size: 10px;
+        padding: 8px 10px;
+        min-height: 32px;
+    }
+
+    .risk-label .risk-icon {
+        font-size: 12px;
+    }
+
+    .stat-row {
+        font-size: 11px;
+        padding: 4px 0;
+    }
+
+    .stat-row .stat-value {
+        font-size: 10px;
+        padding: 0 6px;
+    }
+
+    .conclusion {
+        font-size: 11px;
+        padding: 8px 10px;
+        min-height: 32px;
+    }
+
+    .dropdown-panel {
+        min-width: 180px;
+        max-width: 200px;
+        padding: 8px 10px;
+        max-height: 240px;
+    }
+
+    #profilePanel {
+        min-width: 170px;
+    }
+
+    .profile-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .profile-info .profile-name {
+        font-size: 11px;
+    }
+
+    .profile-stats .stat-value {
+        font-size: 12px;
+    }
+
+    .dropdown-item {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+
+    .help-title {
+        font-size: 17px;
+    }
+
+    .faq-question-text {
+        font-size: 11px;
+    }
+
+    .faq-answer p,
+    .faq-answer ul {
+        font-size: 11px;
+    }
+
+    .category-btn {
+        font-size: 9px;
+        padding: 3px 8px;
+    }
+
+    .contact-card h3 {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   5. LIGHT MODE OVERRIDES
+   ============================================ */
+[data-theme="light"] .sidebar {
+    background: var(--bg-sidebar);
+    border-right-color: var(--border-subtle);
+}
+
+[data-theme="light"] .sidebar-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .dropdown-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: var(--glass-blur);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .dropdown-header {
+    color: var(--text-primary);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .notification-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .notification-item .notif-content p {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .profile-info .profile-name {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .profile-stats .stat-value {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .dropdown-item {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .dropdown-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .no-notifs {
+    color: var(--text-muted);
+}
+
+[data-theme="light"] .header-btn {
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .header-btn:hover {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+
+[data-theme="light"] .header-btn .badge {
+    border-color: var(--bg-body);
+}
+
+[data-theme="light"] .qr-upload-area {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .qr-upload-area:hover {
+    border-color: var(--border-input);
+    background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] #qrResult {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .terminal-log {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .terminal-status {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .terminal-bar {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .terminal-card {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+
+[data-theme="light"] .terminal-card:hover {
+    border-color: var(--border-active);
+}
+
+[data-theme="light"] .conclusion {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .risk-label.waiting {
+    background: var(--bg-input);
+    border-color: var(--border-subtle);
+}
+
+[data-theme="light"] .scanlines::before {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
+    );
+}
+
+[data-theme="light"] .terminal-grid::before {
+    background-image: 
+        linear-gradient(rgba(0, 153, 38, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 153, 38, 0.03) 1px, transparent 1px);
+}

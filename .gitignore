@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Large model files (regenerate via train scripts)
+model/trained/phishing_model.joblib
+model/trained/url_text_model.joblib
+model/trained/email_text_model.joblib
+
+# Runtime
+server.log
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
