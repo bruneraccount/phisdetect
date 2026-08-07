@@ -32,6 +32,9 @@
             Navigation: typeof NavigationManager !== 'undefined',
             Scanner: typeof ScannerManager !== 'undefined',
             Dashboard: typeof DashboardManager !== 'undefined',
+            Minigame: typeof MinigamesManager !== 'undefined',
+            LinkDismantler: typeof LinkDismantlerManager !== 'undefined',
+            ThreatHunt: typeof ThreatHuntManager !== 'undefined',
             Faq: typeof FaqManager !== 'undefined'
         };
 
@@ -95,6 +98,38 @@
                 }
             } else {
                 console.warn('DashboardManager not found');
+            }
+        } else if (path.includes('minigames.html')) {
+            console.log('Minigames page detected');
+            if (managers.Minigame) {
+                try {
+                    MinigamesManager.init();
+                    console.log('MinigamesManager initialized');
+                } catch (e) {
+                    console.error('MinigamesManager init failed:', e);
+                }
+            } else {
+                console.warn('MinigamesManager not found');
+            }
+            if (managers.LinkDismantler) {
+                try {
+                    LinkDismantlerManager.init();
+                    console.log('LinkDismantlerManager initialized');
+                } catch (e) {
+                    console.error('LinkDismantlerManager init failed:', e);
+                }
+            } else {
+                console.warn('LinkDismantlerManager not found');
+            }
+            if (managers.ThreatHunt) {
+                try {
+                    ThreatHuntManager.init();
+                    console.log('ThreatHuntManager initialized');
+                } catch (e) {
+                    console.error('ThreatHuntManager init failed:', e);
+                }
+            } else {
+                console.warn('ThreatHuntManager not found');
             }
         } else if (path.includes('help.html')) {
             console.log('Help page detected');

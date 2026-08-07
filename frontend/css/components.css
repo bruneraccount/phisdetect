@@ -1345,3 +1345,325 @@
     background: var(--bg-input);
     border-color: var(--border-subtle);
 }
+
+/* ============================================
+   20. MINIGAMES — PHISH OR LEGIT
+   ============================================ */
+.minigame-play {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.minigame-start {
+    text-align: center;
+    padding: 12px 0;
+}
+
+.minigame-start .minigame-icon,
+.minigame-results .minigame-icon {
+    font-size: 40px;
+    color: var(--green);
+    margin-bottom: 12px;
+}
+
+.minigame-start h2,
+.minigame-results h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.minigame-start p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto 18px;
+}
+
+.minigame-rules {
+    text-align: left;
+    max-width: 540px;
+    margin: 0 auto 24px;
+    padding: 16px 22px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    list-style: none;
+}
+
+.minigame-rules li {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.minigame-rules li:last-child {
+    margin-bottom: 0;
+}
+
+.minigame-rules li i {
+    width: 18px;
+    margin-right: 4px;
+}
+
+.minigame-hud {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    border-bottom: 1px solid var(--border-input);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.minigame-hud .mg-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.minigame-hud .mg-stat strong {
+    color: var(--green);
+}
+
+.minigame-hud .minigame-badge {
+    margin-left: auto;
+}
+
+.minigame-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.minigame-badge.email {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.minigame-badge.url {
+    background: rgba(167, 139, 250, 0.12);
+    color: #a78bfa;
+    border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+.minigame-question {
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-height: 140px;
+}
+
+.minigame-question.mg-url {
+    background: rgba(0, 255, 65, 0.04);
+    border-color: rgba(0, 255, 65, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.minigame-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 8px 0;
+}
+
+.minigame-actions .btn {
+    min-width: 160px;
+}
+
+.minigame-actions .btn.picked,
+.mg-options .mg-option.picked {
+    opacity: 0.45;
+    transform: scale(0.97);
+}
+
+.minigame-actions .btn.correct,
+.mg-options .mg-option.correct {
+    opacity: 1;
+    outline: 2px solid var(--status-safe);
+    outline-offset: 2px;
+}
+
+.mg-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 8px 0;
+}
+
+.mg-options .mg-option {
+    justify-content: flex-start;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 12px 16px;
+    word-break: break-all;
+}
+
+.minigame-feedback {
+    border-top: 1px solid var(--border-input);
+    padding-top: 16px;
+}
+
+.minigame-feedback .mg-feedback-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.mg-feedback-label.mg-correct {
+    color: var(--status-safe);
+}
+
+.mg-feedback-label.mg-wrong {
+    color: var(--status-danger);
+}
+
+.minigame-feedback .mg-explain {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.minigame-results {
+    text-align: center;
+    padding: 12px 0;
+}
+
+.mg-result-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--green);
+    margin: 8px 0 4px;
+}
+
+.minigame-results p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.mg-result-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto 22px;
+}
+
+.mg-result-stats > div {
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    padding: 14px 12px;
+}
+
+.mg-result-stats span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.mg-result-stats strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+/* Threat Hunt token grid */
+.th-timer-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.th-timer-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-danger, #ef4444);
+    min-width: 32px;
+}
+
+.th-timer-bar {
+    flex: 1;
+    margin: 0;
+}
+
+.th-timer-bar .progress-fill {
+    transition: width 0.1s linear;
+}
+
+.th-hint {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.th-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    align-items: baseline;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    padding: 18px 20px;
+    line-height: 1.9;
+}
+
+.th-token {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 1px 4px;
+    cursor: pointer;
+    transition: background var(--transition-fast), box-shadow var(--transition-fast);
+    word-break: break-all;
+}
+
+.th-token:hover {
+    background: var(--bg-card-hover);
+}
+
+.th-token.is-flag {
+    border: 1px dashed rgba(239, 68, 68, 0.5);
+}
+
+.th-token.found,
+.th-token.reveal {
+    background: rgba(0, 255, 65, 0.12);
+    box-shadow: 0 0 0 1px var(--status-safe);
+    color: var(--status-safe);
+}
+
+.th-token.miss {
+    background: rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 0 1px var(--status-danger);
+    color: var(--status-danger);
+}
