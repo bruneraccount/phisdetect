@@ -167,13 +167,13 @@
                 HORIZONTAL TABS
                 ========================================== -->
                 <div class="tabs" role="tablist" aria-label="Scanner modes">
-                    <button class="tab active" data-tab="url" role="tab" id="tab-url" aria-controls="panel-url" aria-selected="true">
-                        <i class="fa-solid fa-link"></i>
-                        <span>URL Scanner</span>
-                    </button>
-                    <button class="tab" data-tab="email" role="tab" id="tab-email" aria-controls="panel-email" aria-selected="false">
+                    <button class="tab active" data-tab="email" role="tab" id="tab-email" aria-controls="panel-email" aria-selected="true">
                         <i class="fa-solid fa-envelope"></i>
                         <span>Email Scanner</span>
+                    </button>
+                    <button class="tab" data-tab="url" role="tab" id="tab-url" aria-controls="panel-url" aria-selected="false">
+                        <i class="fa-solid fa-link"></i>
+                        <span>URL Scanner</span>
                     </button>
                     <button class="tab" data-tab="qr" role="tab" id="tab-qr" aria-controls="panel-qr" aria-selected="false">
                         <i class="fa-solid fa-qrcode"></i>
@@ -187,9 +187,88 @@
                 <div class="panels">
 
                     <!-- ==========================================
+                    EMAIL SCANNER PANEL
+                    ========================================== -->
+                    <div class="tab-panel active" id="panel-email" role="tabpanel" aria-labelledby="tab-email">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    Email Input
+                                </div>
+                                <span class="status-badge gray" id="emailStatusBadge">
+                                    <span class="badge-dot"></span>
+                                    Ready
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-16">
+                                    <label for="emailInput">Paste email content</label>
+                                    <div class="input-row-start">
+                                        <div class="input-terminal flex-1">
+                                            <span class="prompt prompt-textarea">$</span>
+                                            <textarea
+                                                class="input-text input-textarea terminal-cursor"
+                                                id="emailInput"
+                                                placeholder="Paste email headers or content here..."
+                                                spellcheck="false"
+                                            ></textarea>
+                                        </div>
+                                        <div class="input-btns">
+                                            <button class="btn btn-primary" id="analyzeEmailBtn">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                Analyze
+                                            </button>
+                                            <button class="btn btn-secondary" id="clearEmailBtn">
+                                                <i class="fa-solid fa-eraser"></i>
+                                                Clear
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <span class="hint">Paste the full email or headers for analysis</span>
+                                </div>
+
+                                <div id="emailResults">
+                                    <div class="risk-label waiting hidden" id="emailRiskLabel"></div>
+
+                                    <div style="margin-top: 14px;">
+                                        <div class="stat-row">
+                                            <span class="stat-label">AI Confidence</span>
+                                            <span class="stat-value neutral" id="emailConfidence">--</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Suspicious Links</span>
+                                            <span class="stat-value neutral" id="emailLinks">--</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Suspicious Attachments</span>
+                                            <span class="stat-value neutral" id="emailAttachments">--</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Grammar Manipulation</span>
+                                            <span class="stat-value neutral" id="emailGrammar">--</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="stat-label">Spoofing Detected</span>
+                                            <span class="stat-value neutral" id="emailSpoofing">--</span>
+                                        </div>
+                                        </div>
+
+                                        <div id="emailIndicators"></div>
+
+                                        <button class="btn btn-danger" id="reportEmailBtn" style="display: none; margin-top: 12px; width: 100%;">
+                                        <i class="fa-solid fa-flag"></i>
+                                        Report Threat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
                     URL SCANNER PANEL
                     ========================================== -->
-                    <div class="tab-panel active" id="panel-url" role="tabpanel" aria-labelledby="tab-url">
+                    <div class="tab-panel" id="panel-url" role="tabpanel" aria-labelledby="tab-url">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
@@ -262,85 +341,6 @@
                                             Report Threat
                                         </button>
                                     </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ==========================================
-                    EMAIL SCANNER PANEL
-                    ========================================== -->
-                    <div class="tab-panel" id="panel-email" role="tabpanel" aria-labelledby="tab-email">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    Email Input
-                                </div>
-                                <span class="status-badge gray" id="emailStatusBadge">
-                                    <span class="badge-dot"></span>
-                                    Ready
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <div class="input-group mb-16">
-                                    <label for="emailInput">Paste email content</label>
-                                    <div class="input-row-start">
-                                        <div class="input-terminal flex-1">
-                                            <span class="prompt prompt-textarea">$</span>
-                                            <textarea
-                                                class="input-text input-textarea terminal-cursor"
-                                                id="emailInput"
-                                                placeholder="Paste email headers or content here..."
-                                                spellcheck="false"
-                                            ></textarea>
-                                        </div>
-                                        <div class="input-btns">
-                                            <button class="btn btn-primary" id="analyzeEmailBtn">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                                Analyze
-                                            </button>
-                                            <button class="btn btn-secondary" id="clearEmailBtn">
-                                                <i class="fa-solid fa-eraser"></i>
-                                                Clear
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <span class="hint">Paste the full email or headers for analysis</span>
-                                </div>
-
-                                <div id="emailResults">
-                                    <div class="risk-label waiting hidden" id="emailRiskLabel"></div>
-
-                                    <div style="margin-top: 14px;">
-                                        <div class="stat-row">
-                                            <span class="stat-label">AI Confidence</span>
-                                            <span class="stat-value neutral" id="emailConfidence">--</span>
-                                        </div>
-                                        <div class="stat-row">
-                                            <span class="stat-label">Suspicious Links</span>
-                                            <span class="stat-value neutral" id="emailLinks">--</span>
-                                        </div>
-                                        <div class="stat-row">
-                                            <span class="stat-label">Suspicious Attachments</span>
-                                            <span class="stat-value neutral" id="emailAttachments">--</span>
-                                        </div>
-                                        <div class="stat-row">
-                                            <span class="stat-label">Grammar Manipulation</span>
-                                            <span class="stat-value neutral" id="emailGrammar">--</span>
-                                        </div>
-                                        <div class="stat-row">
-                                            <span class="stat-label">Spoofing Detected</span>
-                                            <span class="stat-value neutral" id="emailSpoofing">--</span>
-                                        </div>
-                                        </div>
-
-                                        <div id="emailIndicators"></div>
-
-                                        <button class="btn btn-danger" id="reportEmailBtn" style="display: none; margin-top: 12px; width: 100%;">
-                                        <i class="fa-solid fa-flag"></i>
-                                        Report Threat
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>

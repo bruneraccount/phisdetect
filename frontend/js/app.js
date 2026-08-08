@@ -35,6 +35,7 @@
             Minigame: typeof MinigamesManager !== 'undefined',
             LinkDismantler: typeof LinkDismantlerManager !== 'undefined',
             ThreatHunt: typeof ThreatHuntManager !== 'undefined',
+            MinigameModal: typeof MinigameModalManager !== 'undefined',
             Faq: typeof FaqManager !== 'undefined'
         };
 
@@ -130,6 +131,22 @@
                 }
             } else {
                 console.warn('ThreatHuntManager not found');
+            }
+            if (typeof LeaderboardManager !== 'undefined') {
+                try {
+                    LeaderboardManager.init();
+                    console.log('LeaderboardManager initialized');
+                } catch (e) {
+                    console.error('LeaderboardManager init failed:', e);
+                }
+            }
+            if (managers.MinigameModal) {
+                try {
+                    MinigameModalManager.init();
+                    console.log('MinigameModalManager initialized');
+                } catch (e) {
+                    console.error('MinigameModalManager init failed:', e);
+                }
             }
         } else if (path.includes('help.html')) {
             console.log('Help page detected');

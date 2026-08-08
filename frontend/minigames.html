@@ -43,7 +43,7 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/main.css?v=9" />
     <link rel="stylesheet" href="css/layout.css?v=9" />
-    <link rel="stylesheet" href="css/components.css?v=17" />
+    <link rel="stylesheet" href="css/components.css?v=18" />
     <link rel="stylesheet" href="css/terminal.css?v=7" />
     <link rel="stylesheet" href="css/status.css" />
     <link rel="stylesheet" href="css/responsive.css" />
@@ -154,209 +154,57 @@
                     <p>Train your phishing detection instincts</p>
                 </div>
 
-                <!-- Phish or Legit -->
+                <!-- Global Leaderboard -->
                 <div class="card">
                     <div class="card-body">
-                        <div class="minigame-play">
-
-                            <!-- Start Screen -->
-                            <div id="mgStart" class="minigame-start">
-                                <div class="minigame-icon"><i class="fa-solid fa-fish"></i></div>
-                                <h2>Phish or Legit</h2>
-                                <p>
-                                    Quick-fire challenge: read each email or URL and decide —
-                                    is it a phishing attempt, or is it legitimate?
-                                </p>
-                                <ul class="minigame-rules">
-                                    <li><i class="fa-solid fa-circle-check" style="color: var(--status-safe);"></i> 10 questions per round</li>
-                                    <li><i class="fa-solid fa-star" style="color: #f59e0b;"></i> +10 points for every correct answer</li>
-                                    <li><i class="fa-solid fa-fire-flame-curved" style="color: #f97316;"></i> Chain correct answers for a streak</li>
-                                </ul>
-                                <button id="mgStartBtn" class="btn btn-primary">
-                                    <i class="fa-solid fa-play"></i> Start Game
-                                </button>
-                            </div>
-
-                            <!-- Game Screen -->
-                            <div id="mgGame" class="minigame-game" style="display: none;">
-                                <div class="minigame-hud">
-                                    <span class="mg-stat" id="mgProgress">Question 1 / 10</span>
-                                    <span id="mgKind" class="minigame-badge email">Email</span>
-                                    <span class="mg-stat" id="mgBest">Best: 0 / 0</span>
-                                    <span class="mg-stat" id="mgScore">Score: <strong>0</strong></span>
-                                    <span class="mg-stat" id="mgStreak">Streak: <strong>0</strong></span>
-                                </div>
-
-                                <div class="minigame-question" id="mgQuestion"></div>
-
-                                <div class="minigame-actions">
-                                    <button id="mgPhishBtn" class="btn btn-danger">
-                                        <i class="fa-solid fa-fish"></i> Phish
-                                    </button>
-                                    <button id="mgLegitBtn" class="btn btn-success">
-                                        <i class="fa-solid fa-shield-halved"></i> Legit
-                                    </button>
-                                </div>
-
-                                <div id="mgFeedback" class="minigame-feedback" style="display: none;">
-                                    <p class="mg-feedback-label" id="mgFeedbackLabel"></p>
-                                    <p class="mg-explain" id="mgExplain"></p>
-                                    <button id="mgNextBtn" class="btn btn-primary">
-                                        Next <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Results Screen -->
-                            <div id="mgResults" class="minigame-results" style="display: none;">
-                                <div class="minigame-icon" id="mgResultIcon"></div>
-                                <h2 id="mgResultTitle">Round Complete</h2>
-                                <div class="mg-result-score" id="mgResultScore">0 / 10</div>
-                                <p id="mgResultDetail"></p>
-                                <div class="mg-result-stats" id="mgResultStats"></div>
-                                <button id="mgPlayAgainBtn" class="btn btn-primary">
-                                    <i class="fa-solid fa-rotate-right"></i> Play Again
-                                </button>
-                            </div>
-
+                        <div class="leaderboard-header">
+                            <h2><i class="fa-solid fa-ranking-star" style="color: #f59e0b;"></i> Global Leaderboard</h2>
+                            <button id="lbRefresh" class="btn btn-outline-primary btn-sm">
+                                <i class="fa-solid fa-rotate"></i> Refresh
+                            </button>
+                        </div>
+                        <div id="leaderboardBody" class="leaderboard-body">
+                            <p class="lb-empty">Loading&hellip;</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Link Dismantler -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="minigame-play">
+                <!-- Game Cards -->
+                <div class="minigames-grid games-3">
 
-                            <!-- Start Screen -->
-                            <div id="ldStart" class="minigame-start">
-                                <div class="minigame-icon"><i class="fa-solid fa-link"></i></div>
-                                <h2>Link Dismantler</h2>
-                                <p>
-                                    Deconstruct each URL and find its <strong>real destination</strong> —
-                                    the registrable domain the attacker (or the real site) actually controls.
-                                </p>
-                                <ul class="minigame-rules">
-                                    <li><i class="fa-solid fa-circle-check" style="color: var(--status-safe);"></i> 10 URLs per round</li>
-                                    <li><i class="fa-solid fa-star" style="color: #f59e0b;"></i> +10 points for every correct answer</li>
-                                    <li><i class="fa-solid fa-code-branch" style="color: #38bdf8;"></i> Subdomains and paths never count — only the core domain</li>
-                                </ul>
-                                <button id="ldStartBtn" class="btn btn-primary">
-                                    <i class="fa-solid fa-play"></i> Start Game
-                                </button>
-                            </div>
-
-                            <!-- Game Screen -->
-                            <div id="ldGame" class="minigame-game" style="display: none;">
-                                <div class="minigame-hud">
-                                    <span class="mg-stat" id="ldProgress">Question 1 / 10</span>
-                                    <span class="mg-stat" id="ldBest">Best: 0 / 0</span>
-                                    <span class="mg-stat" id="ldScore">Score: <strong>0</strong></span>
-                                    <span class="mg-stat" id="ldStreak">Streak: <strong>0</strong></span>
-                                </div>
-
-                                <div class="minigame-question mg-url" id="ldQuestion"></div>
-
-                                <div class="mg-options" id="ldOptions"></div>
-
-                                <div id="ldFeedback" class="minigame-feedback" style="display: none;">
-                                    <p class="mg-feedback-label" id="ldFeedbackLabel"></p>
-                                    <p class="mg-explain" id="ldExplain"></p>
-                                    <button id="ldNextBtn" class="btn btn-primary">
-                                        Next <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Results Screen -->
-                            <div id="ldResults" class="minigame-results" style="display: none;">
-                                <div class="minigame-icon" id="ldResultIcon"></div>
-                                <h2 id="ldResultTitle">Round Complete</h2>
-                                <div class="mg-result-score" id="ldResultScore">0 / 10</div>
-                                <p id="ldResultDetail"></p>
-                                <div class="mg-result-stats" id="ldResultStats"></div>
-                                <button id="ldPlayAgainBtn" class="btn btn-primary">
-                                    <i class="fa-solid fa-rotate-right"></i> Play Again
-                                </button>
-                            </div>
-
-                        </div>
+                    <div class="card minigame-card">
+                        <div class="minigame-icon"><i class="fa-solid fa-fish"></i></div>
+                        <div class="minigame-title">Phish or Legit</div>
+                        <p class="minigame-desc">
+                            Quick-fire challenge: read each email or URL and decide — phishing or legitimate?
+                        </p>
+                        <button type="button" class="btn btn-primary" data-open="mg">
+                            <i class="fa-solid fa-play"></i> Play
+                        </button>
                     </div>
-                </div>
 
-                <!-- Threat Hunt -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="minigame-play">
-
-                            <!-- Start Screen -->
-                            <div id="thStart" class="minigame-start">
-                                <div class="minigame-icon"><i class="fa-solid fa-trophy"></i></div>
-                                <h2>Threat Hunt</h2>
-                                <p>
-                                    Race against the clock! Read each email or dismantled URL and
-                                    <strong>click every red flag</strong> — the phishing tokens hiding inside.
-                                </p>
-                                <ul class="minigame-rules">
-                                    <li><i class="fa-solid fa-circle-check" style="color: var(--status-safe);"></i> 10 challenges per round</li>
-                                    <li><i class="fa-solid fa-star" style="color: #f59e0b;"></i> +10 points for clearing a challenge</li>
-                                    <li><i class="fa-solid fa-stopwatch" style="color: #f97316;"></i> 20 seconds per challenge</li>
-                                    <li><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> A false alarm or a missed flag ends it</li>
-                                </ul>
-                                <button id="thStartBtn" class="btn btn-primary">
-                                    <i class="fa-solid fa-play"></i> Start Game
-                                </button>
-                            </div>
-
-                            <!-- Game Screen -->
-                            <div id="thGame" class="minigame-game" style="display: none;">
-                                <div class="minigame-hud">
-                                    <span class="mg-stat" id="thProgress">Question 1 / 10</span>
-                                    <span class="mg-stat" id="thBest">Best: 0 / 0</span>
-                                    <span class="mg-stat" id="thScore">Score: <strong>0</strong></span>
-                                    <span class="mg-stat" id="thStreak">Streak: <strong>0</strong></span>
-                                </div>
-
-                                <div class="th-timer-row">
-                                    <span class="th-timer-text" id="thTimerText">20s</span>
-                                    <div class="progress-bar th-timer-bar">
-                                        <div class="progress-fill red" id="thTimerFill" style="width: 100%;"></div>
-                                    </div>
-                                </div>
-
-                                <div class="th-hint">Click the red flags below. Press <strong>Done</strong> when nothing is left.</div>
-
-                                <div class="th-content" id="thContent"></div>
-
-                                <div class="minigame-actions">
-                                    <button id="thDoneBtn" class="btn btn-secondary">
-                                        <i class="fa-solid fa-check"></i> Done
-                                    </button>
-                                </div>
-
-                                <div id="thFeedback" class="minigame-feedback" style="display: none;">
-                                    <p class="mg-feedback-label" id="thFeedbackLabel"></p>
-                                    <p class="mg-explain" id="thExplain"></p>
-                                    <button id="thNextBtn" class="btn btn-primary">
-                                        Next <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Results Screen -->
-                            <div id="thResults" class="minigame-results" style="display: none;">
-                                <div class="minigame-icon" id="thResultIcon"></div>
-                                <h2 id="thResultTitle">Round Complete</h2>
-                                <div class="mg-result-score" id="thResultScore">0 / 10</div>
-                                <p id="thResultDetail"></p>
-                                <div class="mg-result-stats" id="thResultStats"></div>
-                                <button id="thPlayAgainBtn" class="btn btn-primary">
-                                    <i class="fa-solid fa-rotate-right"></i> Play Again
-                                </button>
-                            </div>
-
-                        </div>
+                    <div class="card minigame-card">
+                        <div class="minigame-icon"><i class="fa-solid fa-link"></i></div>
+                        <div class="minigame-title">Link Dismantler</div>
+                        <p class="minigame-desc">
+                            Deconstruct each URL and find its real destination — the domain the attacker actually controls.
+                        </p>
+                        <button type="button" class="btn btn-primary" data-open="ld">
+                            <i class="fa-solid fa-play"></i> Play
+                        </button>
                     </div>
+
+                    <div class="card minigame-card">
+                        <div class="minigame-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <div class="minigame-title">Threat Hunt</div>
+                        <p class="minigame-desc">
+                            Race against the clock and click every red flag hiding inside each email or URL.
+                        </p>
+                        <button type="button" class="btn btn-primary" data-open="th">
+                            <i class="fa-solid fa-play"></i> Play
+                        </button>
+                    </div>
+
                 </div>
 
             </main>
@@ -407,6 +255,287 @@
     </div>
 
     <!-- ============================================
+    MINIGAME MODALS
+    ============================================ -->
+
+    <!-- Phish or Legit Modal -->
+    <div class="modal-overlay" id="mgOverlay" style="display: none;">
+        <div class="terminal-modal minigame-modal" role="dialog" aria-modal="true" aria-label="Phish or Legit">
+            <div class="terminal-bar">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-amber"></span>
+                <span class="dot dot-green"></span>
+                <span class="terminal-title">Phish or Legit</span>
+                <button type="button" class="mg-close" id="mgClose" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="minigame-body">
+                <div class="minigame-play">
+
+                    <!-- Start Screen -->
+                    <div id="mgStart" class="minigame-start">
+                        <div class="minigame-icon"><i class="fa-solid fa-fish"></i></div>
+                        <h2>Phish or Legit</h2>
+                        <p>
+                            Quick-fire challenge: read each email or URL and decide —
+                            is it a phishing attempt, or is it legitimate?
+                        </p>
+                        <ul class="minigame-rules">
+                            <li><i class="fa-solid fa-circle-check" style="color: var(--status-safe);"></i> 10 questions per round</li>
+                            <li><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Points scale with difficulty (Easy x1, Normal x2, Hard x3)</li>
+                            <li><i class="fa-solid fa-fire-flame-curved" style="color: #f97316;"></i> Chain correct answers for a streak</li>
+                        </ul>
+                        <div class="minigame-difficulty" data-game="mg">
+                            <span class="diff-label">Difficulty</span>
+                            <button type="button" class="diff-btn active" data-diff="easy">Easy</button>
+                            <button type="button" class="diff-btn" data-diff="normal">Normal</button>
+                            <button type="button" class="diff-btn" data-diff="hard">Hard</button>
+                        </div>
+                        <button id="mgStartBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-play"></i> Start Game
+                        </button>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div id="mgGame" class="minigame-game" style="display: none;">
+                        <div class="minigame-hud">
+                            <span class="mg-stat" id="mgProgress">Question 1 / 10</span>
+                            <span id="mgKind" class="minigame-badge email">Email</span>
+                            <span id="mgDiff" class="diff-badge">Normal</span>
+                            <span class="mg-stat" id="mgBest">Best: 0 / 0</span>
+                            <span class="mg-stat" id="mgScore">Score: <strong>0</strong></span>
+                            <span class="mg-stat" id="mgStreak">Streak: <strong>0</strong></span>
+                        </div>
+
+                        <div class="minigame-question" id="mgQuestion"></div>
+
+                        <div class="minigame-actions">
+                            <button id="mgPhishBtn" class="btn btn-danger">
+                                <i class="fa-solid fa-fish"></i> Phish
+                            </button>
+                            <button id="mgLegitBtn" class="btn btn-success">
+                                <i class="fa-solid fa-shield-halved"></i> Legit
+                            </button>
+                        </div>
+
+                        <div id="mgFeedback" class="minigame-feedback" style="display: none;">
+                            <p class="mg-feedback-label" id="mgFeedbackLabel"></p>
+                            <p class="mg-explain" id="mgExplain"></p>
+                            <button id="mgNextBtn" class="btn btn-primary">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Screen -->
+                    <div id="mgResults" class="minigame-results" style="display: none;">
+                        <div class="minigame-icon" id="mgResultIcon"></div>
+                        <h2 id="mgResultTitle">Round Complete</h2>
+                        <div class="mg-result-score" id="mgResultScore">0 / 10</div>
+                        <p id="mgResultDetail"></p>
+                        <div class="mg-result-stats" id="mgResultStats"></div>
+                        <div class="minigame-difficulty" data-game="mg">
+                            <span class="diff-label">Next round difficulty</span>
+                            <button type="button" class="diff-btn active" data-diff="easy">Easy</button>
+                            <button type="button" class="diff-btn" data-diff="normal">Normal</button>
+                            <button type="button" class="diff-btn" data-diff="hard">Hard</button>
+                        </div>
+                        <button id="mgPlayAgainBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-rotate-right"></i> Play Again
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Dismantler Modal -->
+    <div class="modal-overlay" id="ldOverlay" style="display: none;">
+        <div class="terminal-modal minigame-modal" role="dialog" aria-modal="true" aria-label="Link Dismantler">
+            <div class="terminal-bar">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-amber"></span>
+                <span class="dot dot-green"></span>
+                <span class="terminal-title">Link Dismantler</span>
+                <button type="button" class="mg-close" id="ldClose" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="minigame-body">
+                <div class="minigame-play">
+
+                    <!-- Start Screen -->
+                    <div id="ldStart" class="minigame-start">
+                        <div class="minigame-icon"><i class="fa-solid fa-link"></i></div>
+                        <h2>Link Dismantler</h2>
+                        <p>
+                            Deconstruct each URL and find its <strong>real destination</strong> —
+                            the registrable domain the attacker (or the real site) actually controls.
+                        </p>
+                        <ul class="minigame-rules">
+                            <li><i class="fa-solid fa-circle-check" style="color: var(--status-safe);"></i> 10 URLs per round</li>
+                            <li><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Points scale with difficulty (Easy x1, Normal x2, Hard x3)</li>
+                            <li><i class="fa-solid fa-code-branch" style="color: #38bdf8;"></i> Subdomains and paths never count — only the core domain</li>
+                        </ul>
+                        <div class="minigame-difficulty" data-game="ld">
+                            <span class="diff-label">Difficulty</span>
+                            <button type="button" class="diff-btn active" data-diff="easy">Easy</button>
+                            <button type="button" class="diff-btn" data-diff="normal">Normal</button>
+                            <button type="button" class="diff-btn" data-diff="hard">Hard</button>
+                        </div>
+                        <button id="ldStartBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-play"></i> Start Game
+                        </button>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div id="ldGame" class="minigame-game" style="display: none;">
+                        <div class="minigame-hud">
+                            <span class="mg-stat" id="ldProgress">Question 1 / 10</span>
+                            <span id="ldDiff" class="diff-badge">Normal</span>
+                            <span class="mg-stat" id="ldBest">Best: 0 / 0</span>
+                            <span class="mg-stat" id="ldScore">Score: <strong>0</strong></span>
+                            <span class="mg-stat" id="ldStreak">Streak: <strong>0</strong></span>
+                        </div>
+
+                        <div class="minigame-question mg-url" id="ldQuestion"></div>
+
+                        <div class="mg-options" id="ldOptions"></div>
+
+                        <div id="ldFeedback" class="minigame-feedback" style="display: none;">
+                            <p class="mg-feedback-label" id="ldFeedbackLabel"></p>
+                            <p class="mg-explain" id="ldExplain"></p>
+                            <button id="ldNextBtn" class="btn btn-primary">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Screen -->
+                    <div id="ldResults" class="minigame-results" style="display: none;">
+                        <div class="minigame-icon" id="ldResultIcon"></div>
+                        <h2 id="ldResultTitle">Round Complete</h2>
+                        <div class="mg-result-score" id="ldResultScore">0 / 10</div>
+                        <p id="ldResultDetail"></p>
+                        <div class="mg-result-stats" id="ldResultStats"></div>
+                        <div class="minigame-difficulty" data-game="ld">
+                            <span class="diff-label">Next round difficulty</span>
+                            <button type="button" class="diff-btn active" data-diff="easy">Easy</button>
+                            <button type="button" class="diff-btn" data-diff="normal">Normal</button>
+                            <button type="button" class="diff-btn" data-diff="hard">Hard</button>
+                        </div>
+                        <button id="ldPlayAgainBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-rotate-right"></i> Play Again
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Threat Hunt Modal -->
+    <div class="modal-overlay" id="thOverlay" style="display: none;">
+        <div class="terminal-modal minigame-modal" role="dialog" aria-modal="true" aria-label="Threat Hunt">
+            <div class="terminal-bar">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-amber"></span>
+                <span class="dot dot-green"></span>
+                <span class="terminal-title">Threat Hunt</span>
+                <button type="button" class="mg-close" id="thClose" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="minigame-body">
+                <div class="minigame-play">
+
+                    <!-- Start Screen -->
+                    <div id="thStart" class="minigame-start">
+                        <div class="minigame-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <h2>Threat Hunt</h2>
+                        <p>
+                            Race against the clock! Read each email or dismantled URL and
+                            <strong>click every red flag</strong> — the phishing tokens hiding inside.
+                        </p>
+                        <ul class="minigame-rules">
+                            <li><i class="fa-solid fa-circle-check" style="color: var(--status-safe);"></i> 10 challenges per round</li>
+                            <li><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Points scale with difficulty (Easy x1, Normal x2, Hard x3)</li>
+                            <li><i class="fa-solid fa-stopwatch" style="color: #f97316;"></i> Timer shrinks on harder difficulties (25s / 20s / 15s)</li>
+                            <li><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> A false alarm or a missed flag ends it</li>
+                        </ul>
+                        <div class="minigame-difficulty" data-game="th">
+                            <span class="diff-label">Difficulty</span>
+                            <button type="button" class="diff-btn active" data-diff="easy">Easy</button>
+                            <button type="button" class="diff-btn" data-diff="normal">Normal</button>
+                            <button type="button" class="diff-btn" data-diff="hard">Hard</button>
+                        </div>
+                        <button id="thStartBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-play"></i> Start Game
+                        </button>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div id="thGame" class="minigame-game" style="display: none;">
+                        <div class="minigame-hud">
+                            <span class="mg-stat" id="thProgress">Question 1 / 10</span>
+                            <span id="thDiff" class="diff-badge">Normal</span>
+                            <span class="mg-stat" id="thBest">Best: 0 / 0</span>
+                            <span class="mg-stat" id="thScore">Score: <strong>0</strong></span>
+                            <span class="mg-stat" id="thStreak">Streak: <strong>0</strong></span>
+                        </div>
+
+                        <div class="th-timer-row">
+                            <span class="th-timer-text" id="thTimerText">20s</span>
+                            <div class="progress-bar th-timer-bar">
+                                <div class="progress-fill red" id="thTimerFill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="th-hint" id="thHint">Click the red flags below. Press <strong>Done</strong> when nothing is left.</div>
+
+                        <div class="th-content" id="thContent"></div>
+
+                        <div class="minigame-actions">
+                            <button id="thDoneBtn" class="btn btn-secondary">
+                                <i class="fa-solid fa-check"></i> Done
+                            </button>
+                        </div>
+
+                        <div id="thFeedback" class="minigame-feedback" style="display: none;">
+                            <p class="mg-feedback-label" id="thFeedbackLabel"></p>
+                            <p class="mg-explain" id="thExplain"></p>
+                            <button id="thNextBtn" class="btn btn-primary">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Screen -->
+                    <div id="thResults" class="minigame-results" style="display: none;">
+                        <div class="minigame-icon" id="thResultIcon"></div>
+                        <h2 id="thResultTitle">Round Complete</h2>
+                        <div class="mg-result-score" id="thResultScore">0 / 10</div>
+                        <p id="thResultDetail"></p>
+                        <div class="mg-result-stats" id="thResultStats"></div>
+                        <div class="minigame-difficulty" data-game="th">
+                            <span class="diff-label">Next round difficulty</span>
+                            <button type="button" class="diff-btn active" data-diff="easy">Easy</button>
+                            <button type="button" class="diff-btn" data-diff="normal">Normal</button>
+                            <button type="button" class="diff-btn" data-diff="hard">Hard</button>
+                        </div>
+                        <button id="thPlayAgainBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-rotate-right"></i> Play Again
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
     SCRIPTS
     ============================================ -->
 
@@ -416,7 +545,7 @@
     <script src="js/notifications.js"></script>
     <script src="js/profile.js?v=7"></script>
     <script src="js/navigation.js?v=8"></script>
-    <script src="js/minigames.js"></script>
+    <script src="js/minigames.js?v=2"></script>
     <script src="js/app.js"></script>
 
 </body>

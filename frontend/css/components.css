@@ -1622,6 +1622,212 @@
     margin-bottom: 12px;
 }
 
+/* ============================================
+MINIGAME DIFFICULTY SELECTOR
+============================================ */
+.minigame-difficulty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 20px;
+}
+
+.minigame-difficulty .diff-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-right: 4px;
+}
+
+.diff-btn {
+    padding: 8px 18px;
+    border: 1px solid var(--border, #2a2a44);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.diff-btn:hover {
+    border-color: var(--status-safe);
+    color: var(--text-primary);
+}
+
+.diff-btn.active {
+    background: rgba(0, 255, 65, 0.12);
+    border-color: var(--status-safe);
+    color: var(--status-safe);
+    box-shadow: 0 0 0 1px var(--status-safe);
+}
+
+.diff-btn[data-diff="hard"].active {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: var(--status-danger, #ef4444);
+    color: var(--status-danger, #ef4444);
+    box-shadow: 0 0 0 1px var(--status-danger, #ef4444);
+}
+
+.diff-btn[data-diff="normal"].active {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: #f59e0b;
+    color: #f59e0b;
+    box-shadow: 0 0 0 1px #f59e0b;
+}
+
+/* Difficulty badge inside the HUD / results */
+.diff-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: rgba(0, 255, 65, 0.12);
+    border: 1px solid var(--status-safe);
+    color: var(--status-safe);
+}
+
+.diff-badge.normal {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.diff-badge.hard {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: var(--status-danger, #ef4444);
+    color: var(--status-danger, #ef4444);
+}
+
+/* ============================================
+LEADERBOARD
+============================================ */
+.leaderboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.leaderboard-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.leaderboard-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.lb-game {
+    border: 1px solid var(--border, #2a2a44);
+    border-radius: 10px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.lb-game h3 {
+    font-size: 14px;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lb-game h3 i {
+    color: var(--status-safe);
+}
+
+.lb-difficulty {
+    margin-bottom: 10px;
+}
+
+.lb-difficulty .diff-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+}
+
+.lb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lb-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.lb-list li:nth-child(1) {
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.lb-list li:nth-child(1) .lb-rank {
+    color: #f59e0b;
+}
+
+.lb-list li:nth-child(2) {
+    background: rgba(148, 163, 184, 0.08);
+}
+
+.lb-list li:nth-child(3) {
+    background: rgba(180, 83, 9, 0.08);
+}
+
+.lb-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--text-muted);
+    width: 20px;
+    text-align: center;
+}
+
+.lb-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lb-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--status-safe);
+}
+
+.lb-empty {
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 24px 0;
+}
+
+.lb-error {
+    color: var(--status-danger, #ef4444);
+    font-size: 13px;
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 24px 0;
+}
+
 .th-content {
     display: flex;
     flex-wrap: wrap;
@@ -1666,4 +1872,46 @@
     background: rgba(239, 68, 68, 0.15);
     box-shadow: 0 0 0 1px var(--status-danger);
     color: var(--status-danger);
+}
+
+/* ============================================
+   21. MINIGAME MODALS + LEADERBOARD LAYOUT
+   ============================================ */
+body.modal-open {
+    overflow: hidden;
+}
+
+.games-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.modal-overlay .minigame-modal {
+    width: 560px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
+}
+
+.minigame-modal .terminal-bar .mg-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 16px;
+    padding: 2px 6px;
+    cursor: pointer;
+    line-height: 1;
+    border-radius: 4px;
+    transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.minigame-modal .terminal-bar .mg-close:hover {
+    color: var(--status-danger);
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.minigame-body {
+    overflow-y: auto;
+    padding: 24px 26px 28px;
+    -webkit-overflow-scrolling: touch;
 }

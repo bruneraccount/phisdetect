@@ -16,7 +16,8 @@ const ScannerManager = {
         this.resetAnalysis('url');
         this.resetAnalysis('email');
         this.resetAnalysis('qr');
-        this.showTab('url');
+        const initialTab = document.querySelector('.tab.active')?.dataset.tab || 'url';
+        this.showTab(initialTab);
     },
 
     // ============================================

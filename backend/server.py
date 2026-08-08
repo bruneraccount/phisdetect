@@ -1,10 +1,12 @@
 import concurrent.futures
 import hashlib
+import json
 import os
 import re
 import socket
 import ssl
 import sys
+import threading
 import time
 from datetime import datetime
 
@@ -716,7 +718,9 @@ def scan_url():
 
 
 def email_urls(content):
-    return list(dict.fromkeys(URL_RE.findall(content)))
+    urls = list(dict.fromkeys(URL_RE.findall(content)))
+    # Trim trailing markdown/punctuation glued to the URL by the pasted text.
+    return [re.sub(r'[`\*]+$', '', u) for u in urls]
 
 
 def grammar_hits(content):
@@ -740,6 +744,9 @@ def attachment_count(content):
     return sum(1 for f in files if f.lower().endswith(BAD_EXTENSIONS))
 
 
+_EMAIL_MD_STRIP = re.compile(r"[\*`]")
+
+
 def _domain_brand_spoof_reason(domain):
     """Return a reason if the From domain impersonates a brand, else None.
 
@@ -754,24 +761,27 @@ def _domain_brand_spoof_reason(domain):
             continue
         for i, label in enumerate(labels):
             norm = normalize(label)
-            if norm == brand:
+            for token in [norm] + norm.split("-"):
+                if not token:
+                    continue
                 parent = ".".join(labels[i + 1:])
-                if parent and not parent.endswith(real) and parent != real:
-                    return f"From domain '{low}' contains brand '{brand}' but is not '{real}'"
-            elif _edit_distance(norm, brand) <= 2:
-                return f"From domain '{low}' closely resembles brand '{brand}' but is not '{real}'"
-            elif len(norm) > len(brand) and (
-                norm.startswith(brand + "-")
-                or norm.endswith("-" + brand)
-                or f"-{brand}-" in norm
-                or any(ch.isdigit() for ch in norm)
-            ) and brand in norm:
-                return f"From domain '{low}' embeds brand '{brand}' but is not '{real}'"
+                if token == brand:
+                    if parent and not parent.endswith(real) and parent != real:
+                        return f"From domain '{low}' contains brand '{brand}' but is not '{real}'"
+                elif _edit_distance(token, brand) <= 2:
+                    return f"From domain '{low}' closely resembles brand '{brand}' but is not '{real}'"
+                elif len(token) > len(brand) and (
+                    token.startswith(brand + "-")
+                    or token.endswith("-" + brand)
+                    or f"-{brand}-" in token
+                    or any(ch.isdigit() for ch in token)
+                ) and brand in token:
+                    return f"From domain '{low}' embeds brand '{brand}' but is not '{real}'"
     return None
 
 
 def spoof_detected(content):
-    low = content.lower()
+    low = _EMAIL_MD_STRIP.sub("", content.lower())
     from_match = re.search(r"from:\s*([\w.+-]+@[\w-]+\.[\w.]+)", low)
     reply_match = re.search(r"reply-to:\s*([\w.+-]+@[\w-]+\.[\w.]+)", low)
     if from_match and reply_match:
@@ -795,7 +805,8 @@ def spoof_detected(content):
 
 
 def from_domain(content):
-    m = re.search(r"from:\s*(?:[^<\n]*<)?([\w.+-]+@[\w-]+\.[\w.]+)>?", content.lower())
+    low = _EMAIL_MD_STRIP.sub("", content.lower())
+    m = re.search(r"from:\s*(?:[^<\n]*<)?([\w.+-]+@[\w-]+\.[\w.]+)>?", low)
     if m:
         return m.group(1).split("@")[-1].strip().lower()
     return None
@@ -1114,6 +1125,93 @@ def scan_email():
         "links": links,
         "indicators": email_indicators,
     })
+
+
+# ============================================
+# MINIGAME RESULTS (lightweight JSON persistence)
+# ============================================
+
+MINIGAME_TYPES = {"phish-or-legit", "link-dismantler", "threat-hunt"}
+MINIGAME_DIFFICULTIES = {"easy", "normal", "hard"}
+MINIGAME_TOP_N = 20
+_minigame_lock = threading.Lock()
+_MINIGAME_DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "data", "minigame_scores.json")
+
+
+def _load_minigame_scores():
+    try:
+        with open(_MINIGAME_DATA_FILE) as fh:
+            data = json.load(fh)
+        if isinstance(data, dict):
+            return data
+    except (OSError, ValueError):
+        pass
+    return {}
+
+
+def _save_minigame_scores(data):
+    os.makedirs(os.path.dirname(_MINIGAME_DATA_FILE), exist_ok=True)
+    with open(_MINIGAME_DATA_FILE, "w") as fh:
+        json.dump(data, fh, indent=2)
+
+
+def _minigame_rank(entries, score, streak):
+    """1-indexed rank of (score, streak) against a sorted list of prior entries."""
+    position = 1
+    for e in entries:
+        if e.get("score", 0) > score or (e.get("score", 0) == score and e.get("streak", 0) > streak):
+            position += 1
+    return position
+
+
+@app.post("/api/minigame/result")
+def minigame_result():
+    data = request.get_json(silent=True) or {}
+    game = str(data.get("game") or "").strip()
+    difficulty = str(data.get("difficulty") or "normal").strip()
+    if game not in MINIGAME_TYPES:
+        return jsonify({"error": "Invalid game"}), 400
+    if difficulty not in MINIGAME_DIFFICULTIES:
+        return jsonify({"error": "Invalid difficulty"}), 400
+    try:
+        score = max(0, int(data.get("score", 0)))
+        total = max(1, int(data.get("total", 1)))
+        streak = max(0, int(data.get("bestStreak", 0)))
+    except (TypeError, ValueError):
+        return jsonify({"error": "Invalid score fields"}), 400
+    name = str(data.get("name") or "Guest").strip()[:24] or "Guest"
+
+    with _minigame_lock:
+        all_scores = _load_minigame_scores()
+        entries = all_scores.get(game, {}).get(difficulty, [])
+        rank = _minigame_rank(entries, score, streak)
+        entries.append({
+            "name": name,
+            "score": score,
+            "total": total,
+            "streak": streak,
+            "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        })
+        entries.sort(key=lambda e: (-e["score"], -e["streak"]))
+        entries = entries[:MINIGAME_TOP_N]
+        all_scores.setdefault(game, {})[difficulty] = entries
+        _save_minigame_scores(all_scores)
+
+    return jsonify({"ok": True, "game": game, "difficulty": difficulty,
+                    "rank": rank, "top": len(entries)})
+
+
+@app.get("/api/minigame/leaderboard")
+def minigame_leaderboard():
+    with _minigame_lock:
+        all_scores = _load_minigame_scores()
+    board = {}
+    for game in sorted(MINIGAME_TYPES):
+        board[game] = {}
+        for diff in ("easy", "normal", "hard"):
+            board[game][diff] = (all_scores.get(game) or {}).get(diff, [])[:5]
+    return jsonify({"leaderboard": board})
 
 
 if __name__ == "__main__":
